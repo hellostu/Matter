@@ -6,17 +6,16 @@
 //  Copyright (c) 2015 DBHackathon. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MTRRootViewController.h"
 
-@interface ViewController ()
+@interface MTRRootViewController ()
 
 @end
 
-@implementation ViewController
+@implementation MTRRootViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)didReceiveMemoryWarning {

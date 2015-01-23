@@ -9,10 +9,8 @@
 /* Begin PBXBuildFile section */
 		445321EB1A72E9A90017D04B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 445321EA1A72E9A90017D04B /* main.m */; };
 		445321EE1A72E9A90017D04B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 445321ED1A72E9A90017D04B /* AppDelegate.m */; };
-		445321F11A72E9A90017D04B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 445321F01A72E9A90017D04B /* ViewController.m */; };
-		445321F41A72E9A90017D04B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 445321F21A72E9A90017D04B /* Main.storyboard */; };
+		445321F11A72E9A90017D04B /* MTRRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 445321F01A72E9A90017D04B /* MTRRootViewController.m */; };
 		445321F61A72E9A90017D04B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 445321F51A72E9A90017D04B /* Images.xcassets */; };
-		445321F91A72E9A90017D04B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 445321F71A72E9A90017D04B /* LaunchScreen.xib */; };
 		445322051A72E9A90017D04B /* MatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 445322041A72E9A90017D04B /* MatterTests.m */; };
 /* End PBXBuildFile section */
 
@@ -32,11 +30,9 @@
 		445321EA1A72E9A90017D04B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		445321EC1A72E9A90017D04B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		445321ED1A72E9A90017D04B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		445321EF1A72E9A90017D04B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		445321F01A72E9A90017D04B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		445321F31A72E9A90017D04B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		445321EF1A72E9A90017D04B /* MTRRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTRRootViewController.h; sourceTree = "<group>"; };
+		445321F01A72E9A90017D04B /* MTRRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTRRootViewController.m; sourceTree = "<group>"; };
 		445321F51A72E9A90017D04B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		445321F81A72E9A90017D04B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		445321FE1A72E9A90017D04B /* MatterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MatterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		445322031A72E9A90017D04B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		445322041A72E9A90017D04B /* MatterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatterTests.m; sourceTree = "<group>"; };
@@ -83,11 +79,9 @@
 			children = (
 				445321EC1A72E9A90017D04B /* AppDelegate.h */,
 				445321ED1A72E9A90017D04B /* AppDelegate.m */,
-				445321EF1A72E9A90017D04B /* ViewController.h */,
-				445321F01A72E9A90017D04B /* ViewController.m */,
-				445321F21A72E9A90017D04B /* Main.storyboard */,
+				445321EF1A72E9A90017D04B /* MTRRootViewController.h */,
+				445321F01A72E9A90017D04B /* MTRRootViewController.m */,
 				445321F51A72E9A90017D04B /* Images.xcassets */,
-				445321F71A72E9A90017D04B /* LaunchScreen.xib */,
 				445321E81A72E9A90017D04B /* Supporting Files */,
 			);
 			path = Matter;
@@ -199,8 +193,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				445321F41A72E9A90017D04B /* Main.storyboard in Resources */,
-				445321F91A72E9A90017D04B /* LaunchScreen.xib in Resources */,
 				445321F61A72E9A90017D04B /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,7 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				445321F11A72E9A90017D04B /* ViewController.m in Sources */,
+				445321F11A72E9A90017D04B /* MTRRootViewController.m in Sources */,
 				445321EE1A72E9A90017D04B /* AppDelegate.m in Sources */,
 				445321EB1A72E9A90017D04B /* main.m in Sources */,
 			);
@@ -242,25 +234,6 @@
 			targetProxy = 445321FF1A72E9A90017D04B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		445321F21A72E9A90017D04B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				445321F31A72E9A90017D04B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		445321F71A72E9A90017D04B /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				445321F81A72E9A90017D04B /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		445322061A72E9A90017D04B /* Debug */ = {
@@ -414,6 +387,7 @@
 				4453220A1A72E9A90017D04B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4453220B1A72E9A90017D04B /* Build configuration list for PBXNativeTarget "MatterTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +396,7 @@
 				4453220D1A72E9A90017D04B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
