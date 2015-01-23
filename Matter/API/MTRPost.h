@@ -14,4 +14,6 @@
 @property (nonatomic, readonly) NSString *body;
 @property (nonatomic, readonly) NSDate *postDate;
 
+- (instancetype)initWithTitle:(NSString *)title description:(NSString *)body;
+
 @end
