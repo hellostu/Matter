@@ -19,6 +19,7 @@
 		445322171A72ED7A0017D04B /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 445322161A72ED7A0017D04B /* libc++.dylib */; };
 		445322191A72ED800017D04B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 445322181A72ED800017D04B /* libz.dylib */; };
 		4453221E1A72EDBC0017D04B /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4453221D1A72EDBC0017D04B /* Dropbox.framework */; };
+		445322231A72F4E70017D04B /* MTRPostCreationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 445322221A72F4E70017D04B /* MTRPostCreationView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,8 @@
 		445322161A72ED7A0017D04B /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		445322181A72ED800017D04B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4453221D1A72EDBC0017D04B /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
+		445322211A72F4E70017D04B /* MTRPostCreationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRPostCreationView.h; sourceTree = "<group>"; };
+		445322221A72F4E70017D04B /* MTRPostCreationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRPostCreationView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,10 +154,20 @@
 		4453221F1A72EEBB0017D04B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				445322201A72F4CB0017D04B /* Views */,
 				445321EF1A72E9A90017D04B /* MTRRootViewController.h */,
 				445321F01A72E9A90017D04B /* MTRRootViewController.m */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		445322201A72F4CB0017D04B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				445322211A72F4E70017D04B /* MTRPostCreationView.h */,
+				445322221A72F4E70017D04B /* MTRPostCreationView.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				445321F11A72E9A90017D04B /* MTRRootViewController.m in Sources */,
+				445322231A72F4E70017D04B /* MTRPostCreationView.m in Sources */,
 				445321EE1A72E9A90017D04B /* AppDelegate.m in Sources */,
 				445321EB1A72E9A90017D04B /* main.m in Sources */,
 			);
