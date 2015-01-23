@@ -8,12 +8,14 @@
 
 #import "MTRRootViewController.h"
 #import "MTRPostCreationView.h"
+#import "MTRApi.h"
+#import "MTRPost.h"
 
 #define PADDING_LEFT 10
 #define PADDING_RIGHT 10
 #define PADDING_TOP 20
 
-@interface MTRRootViewController (){
+@interface MTRRootViewController () <MTRPostCreationViewDelegate> {
     MTRPostCreationView *_postCreationView;
 }
 @end
@@ -28,8 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
     _postCreationView = [[MTRPostCreationView alloc] init];
     _postCreationView.translatesAutoresizingMaskIntoConstraints = NO;
+    _postCreationView.delegate = self;
     [self.view addSubview:_postCreationView];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_postCreationView
                                                           attribute:NSLayoutAttributeLeft
@@ -66,6 +71,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark MTRCreationViewDelegate
+//////////////////////////////////////////////////////////////////////////
+
+- (void)postCreationViewDidPostWithTitle:(NSString *)title description:(NSString *)description {
+    MTRPost *post = [[MTRPost alloc] initWithTitle:title description:description];
+    [[MTRApi sharedInstance] post:post];
 }
 
 @end
