@@ -99,10 +99,9 @@
 		445321E71A72E9A90017D04B /* Matter */ = {
 			isa = PBXGroup;
 			children = (
+				4453221F1A72EEBB0017D04B /* ViewControllers */,
 				445321EC1A72E9A90017D04B /* AppDelegate.h */,
 				445321ED1A72E9A90017D04B /* AppDelegate.m */,
-				445321EF1A72E9A90017D04B /* MTRRootViewController.h */,
-				445321F01A72E9A90017D04B /* MTRRootViewController.m */,
 				445321F51A72E9A90017D04B /* Images.xcassets */,
 				445321E81A72E9A90017D04B /* Supporting Files */,
 			);
@@ -147,6 +146,15 @@
 				4453220E1A72ED4F0017D04B /* CFNetwork.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4453221F1A72EEBB0017D04B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				445321EF1A72E9A90017D04B /* MTRRootViewController.h */,
+				445321F01A72E9A90017D04B /* MTRRootViewController.m */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
