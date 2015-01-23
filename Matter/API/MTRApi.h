@@ -1,0 +1,18 @@
+//
+//  MTRApi.h
+//  Matter
+//
+//  Created by Alex on 23/01/2015.
+//  Copyright (c) 2015 DBHackathon. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "MTRPost.h"
+
+@interface MTRApi : NSObject
+
++ (instancetype) sharedApi;
+
+- (void)post:(MTRPost *)post;
+
+@end
