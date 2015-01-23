@@ -11,7 +11,7 @@
 
 @interface MTRApi : NSObject
 
-+ (instancetype) sharedApi;
++ (instancetype)sharedInstance;
 
 - (void)post:(MTRPost *)post;
 

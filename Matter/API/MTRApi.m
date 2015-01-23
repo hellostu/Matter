@@ -17,7 +17,7 @@
 
 @implementation MTRApi
 
-+ (instancetype) sharedApi
++ (instancetype)sharedInstance
 {
     static dispatch_once_t pred;
     static id sharedInstance = nil;
@@ -27,7 +27,7 @@
     return sharedInstance;
 }
 
-- (instancetype) init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -39,7 +39,12 @@
 
 - (void)post:(MTRPost *)post
 {
-    
+    DBError *error = nil;
+    DBPath *dbPath = [[DBPath root] childPath:@"hello.txt"];
+    DBFile *file = [self.filesystem createFile:dbPath error:&error];
+    if (file) {
+        [file writeString:@"test!" error:&error];
+    }
 }
 
 @end
