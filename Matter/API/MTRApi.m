@@ -40,10 +40,11 @@
 - (void)post:(MTRPost *)post
 {
     DBError *error = nil;
-    DBPath *dbPath = [[DBPath root] childPath:@"hello.txt"];
+    DBPath *dbPath = [[DBPath root] childPath:@"text.txt"];
     DBFile *file = [self.filesystem createFile:dbPath error:&error];
     if (file) {
-        [file writeString:@"test!" error:&error];
+        NSString *text = [NSString stringWithFormat:@"%@\n\n%@", post.title, post.body];
+        [file writeString:text error:&error];
     }
 }
 
