@@ -16,7 +16,7 @@
 #define PADDING_RIGHT 10
 #define PADDING_TOP 20
 
-@interface MTRRootViewController () <MTRPostCreationViewDelegate> {
+@interface MTRRootViewController () <UITableViewDataSource> {
     UITableView *_tableView;
 }
 @end
@@ -31,8 +31,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"Matter";
+    
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
                                                           attribute:NSLayoutAttributeTop
@@ -98,6 +101,10 @@
     
 }
 
+-(UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -105,12 +112,19 @@
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark MTRCreationViewDelegate
+#pragma mark UITableViewDataSource
 //////////////////////////////////////////////////////////////////////////
 
-- (void)postCreationViewDidPostWithTitle:(NSString *)title description:(NSString *)description {
-    MTRPost *post = [[MTRPost alloc] initWithTitle:title description:description];
-    [[MTRApi sharedInstance] post:post];
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return nil;
 }
 
 @end

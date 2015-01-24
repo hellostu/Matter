@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "MTRRootViewController.h"
 #import "MTRLoginViewController.h"
+#import "MTRColors.h"
 
 #import <Dropbox/Dropbox.h>
 
@@ -39,6 +40,8 @@
     DBAccountManager *accountManager = [[DBAccountManager alloc] initWithAppKey:@"jb2quzu94h24k9x" secret:@"if3vy1wqrd7l9vp"];
     [DBAccountManager setSharedManager:accountManager];
     
+    [self updateAppearance];
+    
     return YES;
 }
 
@@ -49,6 +52,18 @@
         return YES;
     }
     return NO;
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Methods
+//////////////////////////////////////////////////////////////////////////
+
+- (void)updateAppearance {
+    [UINavigationBar appearance].barTintColor = [MTRColors blue];
+    [UINavigationBar appearance].tintColor = [MTRColors white];
+    [UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName : [MTRColors white]};
+    [UINavigationBar appearance].barStyle = UIBarStyleBlackTranslucent;
 }
 
 @end
