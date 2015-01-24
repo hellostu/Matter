@@ -146,6 +146,18 @@
             [postsArray addObject:[self getPostFromFolder:info]];
         }
         
+        [postsArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            NSDate *date1 = ((MTRPost *) obj1).postDate;
+            NSDate *date2 = ((MTRPost *) obj2).postDate;
+            if ([date1 compare:date2] == NSOrderedAscending) {
+                return +1;
+            } else if ([date1 compare:date2] == NSOrderedDescending) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             posts([NSArray arrayWithArray:postsArray]);
         });
