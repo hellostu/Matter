@@ -25,14 +25,25 @@
     return self;
 }
 
+- (void)waitForUpdate:(DBFile *)file
+{
+    while (file.newerStatus != nil && !file.newerStatus.cached) {
+        [NSThread sleepForTimeInterval:0.1];
+    }
+    [file update:nil];
+}
+
 - (NSArray *)load:(NSArray *)dbObjects
 {
     NSMutableArray *uiImageArray = [NSMutableArray new];
     for (DBFileInfo *fileInfo in dbObjects) {
         DBFile *file = [self.filesystem openFile:fileInfo.path error:nil];
+        [self waitForUpdate:file];
         NSData *data = [file readData:nil];
         UIImage *image = [UIImage imageWithData:data];
-        [uiImageArray addObject:image];
+        if (image) {
+            [uiImageArray addObject:image];
+        }
         [file close];
     }
     return uiImageArray;

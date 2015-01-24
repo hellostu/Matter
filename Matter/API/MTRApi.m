@@ -171,6 +171,9 @@
     DBError *error = nil;
     DBPath *textPath = [folder.path childPath:@"text.txt"];
     DBFile *file = [self.filesystem openFile:textPath error:&error];
+    
+    [self waitForUpdate:file];
+    
     NSString *fileAsString = [file readString:&error];
     [file close];
     NSArray *splitFile = [fileAsString componentsSeparatedByString:@"\n\n"];
@@ -178,12 +181,23 @@
     NSMutableArray *imageUrls = [NSMutableArray new];
     NSArray *filesOfPost = [self.filesystem listFolder:folder.path error:nil];
     for (DBFileInfo *file in filesOfPost) {
+        DBFile *openedFile = [self.filesystem openFile:file.path error:&error];
+        [self waitForUpdate:openedFile];
+        [openedFile close];
         if ([self isImageFile:file]) {
             [imageUrls addObject:file];
         }
     }
     
     return [[MTRPost alloc] initWithDate:[self.formatter dateFromString:splitFile[0]]  title:splitFile[1] description:splitFile[2] imageUrls:imageUrls imageLoader:self.loader];
+}
+
+- (void)waitForUpdate:(DBFile *)file
+{
+    while (file.newerStatus != nil && !file.newerStatus.cached) {
+        [NSThread sleepForTimeInterval:0.1];
+    }
+    [file update:nil];
 }
 
 - (BOOL)isTextFile:(DBFileInfo *)info
@@ -215,7 +229,8 @@
     [self.filesystem addObserver:self forPathAndChildren:path block:^() {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            MTRPost *post = [weakSelf getPostFromFolder:[weakSelf.filesystem fileInfoForPath:path error:nil]];
+            DBFileInfo *fileInfo = [weakSelf.filesystem fileInfoForPath:path error:nil];
+            MTRPost *post = [weakSelf getPostFromFolder:fileInfo];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [delegate postChanged:post];
             });

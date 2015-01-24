@@ -18,9 +18,9 @@
 #define PADDING_RIGHT 10
 #define PADDING_TOP 20
 
-@interface MTRRootViewController () <UITableViewDataSource> {
+@interface MTRRootViewController () <UITableViewDataSource, MTRPostChangeDelegate> {
     UITableView *_tableView;
-    NSArray *_posts;
+    NSMutableArray *_posts;
 }
 @end
 
@@ -165,6 +165,7 @@
             postCell.image = images[0];
         }
     }];
+    [post listen:self];
     
     return postCell;
 }
@@ -186,9 +187,25 @@
 
 - (void)fetchFromDropbox {
     [[MTRApi sharedInstance] postsFromThisMonth:^(NSArray *posts) {
-        _posts = posts;
+        _posts = [NSMutableArray arrayWithArray:posts];
         [_tableView reloadData];
     }];
+}
+
+#pragma mark
+
+- (void)postChanged:(MTRPost *)post
+{
+    NSInteger replacedIndex = -1;
+    for (int i = 0; i < [_posts count]; i++) {
+        if ([((MTRPost *)[_posts objectAtIndex:i]).postDate compare:post.postDate] == NSOrderedSame) {
+            replacedIndex = i;
+        }
+    }
+    if (replacedIndex > -1) {
+        [_posts replaceObjectAtIndex:replacedIndex withObject:post];
+        [_tableView reloadData];
+    }
 }
 
 @end
