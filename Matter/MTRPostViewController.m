@@ -205,7 +205,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 - (void)postButtonPressed {
-    MTRPost *post = [[MTRPost alloc] initWithTitle:_titleTextField.text description:_descriptionTextView.text images:nil];
+    MTRPost *post = [[MTRPost alloc] initWithTitle:_titleTextField.text description:_descriptionTextView.text images:@[[UIImage imageNamed:@"dropbox_icon.png"]]];
     [_loadingView startLoading];
     [[MTRApi sharedInstance] post:post withCompletion:^(MTRPost *post) {
         [_loadingView stopLoading];
