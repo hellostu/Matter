@@ -75,18 +75,39 @@
 
 - (void)postsFromThisMonth:(void (^)(NSArray *))posts
 {
+    [self postsFromMonthOfDate:[NSDate new] callback:posts];
+}
+
+- (NSString *)pathForPostWithDate:(NSDate *)date
+{
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:[NSTimeZone systemTimeZone]];
+    [formatter setDateFormat:@"YYYY"];
+    NSString *year = [formatter stringFromDate:date];
+    [formatter setDateFormat:@"MM-MMMM"];
+    NSString *month = [formatter stringFromDate:date];
+    
+    return [NSString stringWithFormat:@"%@/%@/", year, month];
+}
+
+- (void)postsFromMonth:(NSInteger)monthIndex callback:(void (^)(NSArray *))posts
+{
+    NSDate *date = [NSDate new];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.month = monthIndex;
+    date = [[NSCalendar currentCalendar] dateBySettingUnit:NSCalendarUnitMonth value:monthIndex ofDate:date options:0];
+    
+    [self postsFromMonthOfDate:date callback:posts];
+}
+
+- (void)postsFromMonthOfDate:(NSDate *)date callback:(void (^)(NSArray *))posts
+{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSDate *now = [NSDate new];
-        NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-        [formatter setTimeZone:[NSTimeZone systemTimeZone]];
-        [formatter setDateFormat:@"YYYY"];
-        NSString *year = [formatter stringFromDate:now];
-        [formatter setDateFormat:@"MM-MMMM"];
-        NSString *month = [formatter stringFromDate:now];
+        NSString *path = [self pathForPostWithDate:date];
+        NSLog([NSString stringWithFormat:@"Looking for posts in folder: %@", path]);
         
         DBError *error = nil;
-        NSString *path = [NSString stringWithFormat:@"%@/%@/", year, month];
         NSArray *fileInfos = [_filesystem listFolder:[[DBPath root] childPath:path] error:&error];
         
         NSMutableArray *postsArray = [NSMutableArray new];
@@ -105,6 +126,16 @@
         });
         
     });
+    
+}
+
+- (void)postsWithMonthOffset:(NSInteger)monthOffset callback:(void (^)(NSArray *))posts
+{
+    NSDate *date = [NSDate new];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.month = monthOffset;
+    date = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:date options:0];
+    [self postsFromMonthOfDate:date callback:posts];
 }
 
 @end
