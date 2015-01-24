@@ -75,13 +75,7 @@
 
 - (void)postsFromThisMonth:(void (^)(NSArray *))posts
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSDate *now = [NSDate new];
-        NSString *path = [self pathForPostWithDate:now];
-        
-        [self postsFromFilePath:path callback:posts];
-    });
+    [self postsFromMonthOfDate:[NSDate new] callback:posts];
 }
 
 - (NSString *)pathForPostWithDate:(NSDate *)date
@@ -98,41 +92,50 @@
 
 - (void)postsFromMonth:(NSInteger)monthIndex callback:(void (^)(NSArray *))posts
 {
+    NSDate *date = [NSDate new];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.month = monthIndex;
+    date = [[NSCalendar currentCalendar] dateBySettingUnit:NSCalendarUnitMonth value:monthIndex ofDate:date options:0];
+    
+    [self postsFromMonthOfDate:date callback:posts];
+}
+
+- (void)postsFromMonthOfDate:(NSDate *)date callback:(void (^)(NSArray *))posts
+{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSDate *date = [NSDate new];
-        NSDateComponents *components = [[NSDateComponents alloc] init];
-        components.month = monthIndex;
-        date = [[NSCalendar currentCalendar] dateBySettingUnit:NSCalendarUnitMonth value:monthIndex ofDate:date options:0];
         
         NSString *path = [self pathForPostWithDate:date];
         NSLog([NSString stringWithFormat:@"Looking for posts in folder: %@", path]);
         
-        [self postsFromFilePath:path callback:posts];
+        DBError *error = nil;
+        NSArray *fileInfos = [_filesystem listFolder:[[DBPath root] childPath:path] error:&error];
+        
+        NSMutableArray *postsArray = [NSMutableArray new];
+        
+        for (DBFileInfo *info in fileInfos) {
+            DBPath *textPath = [info.path childPath:@"text.txt"];
+            DBFile *file = [self.filesystem openFile:textPath error:&error];
+            NSString *fileAsString = [file readString:&error];
+            [file close];
+            NSArray *splitFile = [fileAsString componentsSeparatedByString:@"\n\n"];
+            [postsArray addObject:[[MTRPost alloc] initWithTitle:splitFile[0] description:splitFile[1]]];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            posts([NSArray arrayWithArray:postsArray]);
+        });
         
     });
+    
 }
 
-- (void)postsFromFilePath:(NSString *)path callback:(void (^)(NSArray *))posts
+- (void)postsWithMonthOffset:(NSInteger)monthOffset callback:(void (^)(NSArray *))posts
 {
-    DBError *error = nil;
-    NSArray *fileInfos = [_filesystem listFolder:[[DBPath root] childPath:path] error:&error];
-    
-    NSMutableArray *postsArray = [NSMutableArray new];
-    
-    for (DBFileInfo *info in fileInfos) {
-        DBPath *textPath = [info.path childPath:@"text.txt"];
-        DBFile *file = [self.filesystem openFile:textPath error:&error];
-        NSString *fileAsString = [file readString:&error];
-        [file close];
-        NSArray *splitFile = [fileAsString componentsSeparatedByString:@"\n\n"];
-        [postsArray addObject:[[MTRPost alloc] initWithTitle:splitFile[0] description:splitFile[1]]];
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        posts([NSArray arrayWithArray:postsArray]);
-    });
-
+    NSDate *date = [NSDate new];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.month = monthOffset;
+    date = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:date options:0];
+    [self postsFromMonthOfDate:date callback:posts];
 }
 
 @end
