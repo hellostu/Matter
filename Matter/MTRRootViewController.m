@@ -146,7 +146,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MTRPostCell *postCell = [tableView dequeueReusableCellWithIdentifier:@"postCell"];
     MTRPost *post = _posts[indexPath.row];
-    postCell.textLabel.text = post.title;
+    postCell.titleText = post.title;
+    postCell.descriptionText = post.body;
     if (indexPath.row == 0) {
         postCell.componentType = MTRComponentTypeTop;
     } else if(indexPath.row == _posts.count-1) {
