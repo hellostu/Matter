@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MTRTimelineComponentView.h"
 
 @interface MTRPostCell : UITableViewCell
+
+@property(nonatomic, readwrite) MTRComponentType componentType;
 
 @end
