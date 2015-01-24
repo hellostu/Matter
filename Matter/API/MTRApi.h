@@ -17,4 +17,6 @@
 
 - (void)postsFromThisMonth:(void (^)(NSArray *))posts;
 
+- (void)postsFromMonth:(NSInteger)monthIndex callback:(void (^)(NSArray *))posts;
+
 @end
