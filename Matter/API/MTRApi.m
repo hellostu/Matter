@@ -89,7 +89,7 @@
     NSString *year = [formatter stringFromDate:post.postDate];
     [formatter setDateFormat:@"MM-MMMM"];
     NSString *month = [formatter stringFromDate:post.postDate];
-    [formatter setDateFormat:@"dd-HH:mm"];
+    [formatter setDateFormat:@"dd HH-mm-ss"];
     NSString *folder = [formatter stringFromDate:post.postDate];
     return [NSString stringWithFormat:@"%@/%@/%@/", year, month, folder];
 }
