@@ -205,7 +205,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 - (void)postButtonPressed {
-    MTRPost *post = [[MTRPost alloc] initWithTitle:_titleTextField.text description:_descriptionTextView.text];
+    MTRPost *post = [[MTRPost alloc] initWithTitle:_titleTextField.text description:_descriptionTextView.text images:nil];
     [_loadingView startLoading];
     [[MTRApi sharedInstance] post:post withCompletion:^(MTRPost *post) {
         [_loadingView stopLoading];
