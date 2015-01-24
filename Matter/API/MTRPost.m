@@ -15,13 +15,14 @@
 #pragma mark Lifecycle
 //////////////////////////////////////////////////////////////////////////
 
-- (instancetype)initWithTitle:(NSString *)title description:(NSString *)body
+- (instancetype)initWithTitle:(NSString *)title description:(NSString *)body images:(NSArray *)images
 {
     self = [super init];
     if (self) {
         _postDate = [NSDate date];
         _title = title;
         _body = body;
+        _images = [NSArray arrayWithArray:images];
     }
     return self;
 }

@@ -118,7 +118,7 @@
             NSString *fileAsString = [file readString:&error];
             [file close];
             NSArray *splitFile = [fileAsString componentsSeparatedByString:@"\n\n"];
-            [postsArray addObject:[[MTRPost alloc] initWithTitle:splitFile[0] description:splitFile[1]]];
+            [postsArray addObject:[[MTRPost alloc] initWithTitle:splitFile[0] description:splitFile[1] images:nil]];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
