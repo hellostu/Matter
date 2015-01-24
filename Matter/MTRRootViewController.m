@@ -155,6 +155,11 @@
     } else {
         postCell.componentType = MTRComponentTypeMiddle;
     }
+    [post retreiveImages:^(NSArray *images) {
+        if (images != nil && images.count > 0) {
+            postCell.image = images[0];
+        }
+    }];
     
     return postCell;
 }

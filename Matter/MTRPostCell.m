@@ -8,21 +8,23 @@
 
 #import "MTRPostCell.h"
 
-#define LEFT_PADDING 10
-#define RIGHT_PADDING 10
-#define TOP_PADDING 15
-#define BOTTOM_PADDING 15
+#define PADDING_LEFT 10
+#define PADDING_RIGHT 10
+#define PADDING_TOP 15
+#define PADDING_BOTTOM 15
 
 @interface MTRPostCell () {
     MTRTimelineComponentView *_timelineComponent;
     UILabel *_titleLabel;
     UILabel *_descriptionLabel;
+    UIImageView *_imageView;
 }
 @end
 
 @implementation MTRPostCell
 @dynamic descriptionText;
 @dynamic titleText;
+@dynamic image;
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
@@ -67,7 +69,6 @@
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
-        
         [self.contentView addSubview:_titleLabel];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_titleLabel
                                                                      attribute:NSLayoutAttributeTop
@@ -75,7 +76,7 @@
                                                                         toItem:self.contentView
                                                                      attribute:NSLayoutAttributeTop
                                                                     multiplier:1.0
-                                                                      constant:TOP_PADDING]];
+                                                                      constant:PADDING_TOP]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_titleLabel
                                                                      attribute:NSLayoutAttributeLeft
                                                                      relatedBy:NSLayoutRelationEqual
@@ -89,13 +90,14 @@
                                                                         toItem:self.contentView
                                                                      attribute:NSLayoutAttributeRight
                                                                     multiplier:1.0
-                                                                      constant:-RIGHT_PADDING]];
+                                                                      constant:-PADDING_RIGHT]];
         
         _descriptionLabel = [[UILabel alloc] init];
         _descriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _descriptionLabel.numberOfLines = 0;
         _descriptionLabel.font = [UIFont systemFontOfSize:12.0f];
+        
         [self.contentView addSubview:_descriptionLabel];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_descriptionLabel
                                                                      attribute:NSLayoutAttributeTop
@@ -103,30 +105,60 @@
                                                                         toItem:_titleLabel
                                                                      attribute:NSLayoutAttributeBottom
                                                                     multiplier:1.0
-                                                                      constant:10.0]];
+                                                                      constant:0.0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_descriptionLabel
                                                                      attribute:NSLayoutAttributeLeft
                                                                      relatedBy:NSLayoutRelationEqual
                                                                         toItem:_timelineComponent
                                                                      attribute:NSLayoutAttributeRight
                                                                     multiplier:1.0
-                                                                      constant:LEFT_PADDING]];
+                                                                      constant:PADDING_LEFT]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_descriptionLabel
+                                                                     attribute:NSLayoutAttributeRight
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self.contentView
+                                                                     attribute:NSLayoutAttributeRight
+                                                                    multiplier:1.0
+                                                                      constant:-PADDING_RIGHT]];
+        
+        _imageView = [[UIImageView alloc] init];
+        _imageView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.contentView addSubview:_imageView];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imageView
+                                                                     attribute:NSLayoutAttributeTop
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:_descriptionLabel
+                                                                     attribute:NSLayoutAttributeBottom
+                                                                    multiplier:1.0
+                                                                      constant:0.0]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imageView
+                                                                     attribute:NSLayoutAttributeLeft
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:_timelineComponent
+                                                                     attribute:NSLayoutAttributeRight
+                                                                    multiplier:1.0
+                                                                      constant:PADDING_LEFT]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imageView
+                                                                     attribute:NSLayoutAttributeRight
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self.contentView
+                                                                     attribute:NSLayoutAttributeRight
+                                                                    multiplier:1.0
+                                                                      constant:-PADDING_RIGHT]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imageView
+                                                                     attribute:NSLayoutAttributeHeight
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self.contentView
+                                                                     attribute:NSLayoutAttributeHeight
+                                                                    multiplier:0.0
+                                                                      constant:100.0]];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imageView
                                                                      attribute:NSLayoutAttributeBottom
                                                                      relatedBy:NSLayoutRelationEqual
                                                                         toItem:self.contentView
                                                                      attribute:NSLayoutAttributeBottom
                                                                     multiplier:1.0
                                                                       constant:-10.0]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_descriptionLabel
-                                                                     attribute:NSLayoutAttributeRight
-                                                                     relatedBy:NSLayoutRelationEqual
-                                                                        toItem:self.contentView
-                                                                     attribute:NSLayoutAttributeRight
-                                                                    multiplier:1.0
-                                                                      constant:-RIGHT_PADDING]];
-        
-        
     }
     return self;
 }
@@ -158,6 +190,15 @@
 - (void)setDescriptionText:(NSString *)descriptionText {
     _descriptionLabel.text = descriptionText;
     [self layoutIfNeeded];
+}
+
+- (UIImage *)image {
+    return _imageView.image;
+}
+
+- (void)setImage:(UIImage *)image {
+    _imageView.image = image;
+    [self invalidateIntrinsicContentSize];
 }
 
 //////////////////////////////////////////////////////////////////////////
