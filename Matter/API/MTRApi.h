@@ -15,4 +15,6 @@
 
 - (void)post:(MTRPost *)post withCompletion:(void (^)(MTRPost *))completion;
 
+- (void)postsFromThisMonth:(void (^)(NSArray *))posts;
+
 @end
