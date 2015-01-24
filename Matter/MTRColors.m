@@ -22,8 +22,8 @@
 + (UIColor *)lightCoolGrey {
     return [UIColor colorWithRed:0.278 green:0.322 blue:0.365 alpha:1.0];
 }
-+ (UIColor *)darkCoolGrey {
-    return [UIColor colorWithRed:0.239 green:0.275 blue:0.302 alpha:1.0];
++ (UIColor *)darkCoolGreyWithAlpha:(CGFloat)alpha {
+    return [UIColor colorWithRed:0.239 green:0.275 blue:0.302 alpha:alpha];
 }
 
 
