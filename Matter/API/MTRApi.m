@@ -43,7 +43,7 @@
         _filesystem = [[DBFilesystem alloc] initWithAccount:account];
         _loader = [[MTRDropboxLoader alloc] initWithFilesystem:_filesystem];
         _formatter = [NSDateFormatter new];
-        [_formatter setDateFormat:@"YYYY-MM-DD HH:mm"];
+        [_formatter setDateFormat:@"YYYY-MM-DD HH:mm:ss"];
         [_formatter setTimeZone:[NSTimeZone defaultTimeZone]];
     }
     return self;
@@ -193,7 +193,11 @@
 
 - (void)listenToPost:(MTRPost *)post withDelegate:(id<MTRPostChangeDelegate>)delegate
 {
-    
+    NSString *relativePath = [self pathForPost:post];
+    DBPath *path = [[DBPath root] childPath:relativePath];
+    [self.filesystem addObserver:self forPathAndChildren:path block:^() {
+        NSLog(@"Something changed!!");
+    }];
 }
 
 @end
