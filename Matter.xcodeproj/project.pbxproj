@@ -33,6 +33,7 @@
 		445322471A73D3520017D04B /* MTRAttachmentViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 445322461A73D3520017D04B /* MTRAttachmentViewCell.m */; };
 		860E4C1D1A72F4D700E16A1D /* MTRPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 860E4C1C1A72F4D700E16A1D /* MTRPost.m */; };
 		860E4C201A72F62400E16A1D /* MTRApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 860E4C1F1A72F62400E16A1D /* MTRApi.m */; };
+		860E4C311A73C79100E16A1D /* MTRDropboxLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 860E4C301A73C79100E16A1D /* MTRDropboxLoader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,8 @@
 		860E4C1C1A72F4D700E16A1D /* MTRPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTRPost.m; path = API/MTRPost.m; sourceTree = "<group>"; };
 		860E4C1E1A72F62400E16A1D /* MTRApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTRApi.h; path = API/MTRApi.h; sourceTree = "<group>"; };
 		860E4C1F1A72F62400E16A1D /* MTRApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTRApi.m; path = API/MTRApi.m; sourceTree = "<group>"; };
+		860E4C2F1A73C79100E16A1D /* MTRDropboxLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTRDropboxLoader.h; path = API/MTRDropboxLoader.h; sourceTree = "<group>"; };
+		860E4C301A73C79100E16A1D /* MTRDropboxLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTRDropboxLoader.m; path = API/MTRDropboxLoader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +252,8 @@
 				860E4C1C1A72F4D700E16A1D /* MTRPost.m */,
 				860E4C1E1A72F62400E16A1D /* MTRApi.h */,
 				860E4C1F1A72F62400E16A1D /* MTRApi.m */,
+				860E4C2F1A73C79100E16A1D /* MTRDropboxLoader.h */,
+				860E4C301A73C79100E16A1D /* MTRDropboxLoader.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -358,6 +363,7 @@
 				445322471A73D3520017D04B /* MTRAttachmentViewCell.m in Sources */,
 				445322351A7324B90017D04B /* MTRColors.m in Sources */,
 				445321F11A72E9A90017D04B /* MTRRootViewController.m in Sources */,
+				860E4C311A73C79100E16A1D /* MTRDropboxLoader.m in Sources */,
 				860E4C1D1A72F4D700E16A1D /* MTRPost.m in Sources */,
 				445322381A7326630017D04B /* MTRPostViewController.m in Sources */,
 				445322441A73B1760017D04B /* MTRLoadingView.m in Sources */,

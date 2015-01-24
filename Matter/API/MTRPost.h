@@ -7,14 +7,26 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MTRDropboxLoader.h"
+
+@protocol MTRPostChangeDelegate <NSObject>
+
+@end
 
 @interface MTRPost : NSObject
 
 @property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) NSString *body;
 @property (nonatomic, readonly) NSDate *postDate;
-@property (nonatomic, readonly) NSArray *images;
 
 - (instancetype)initWithTitle:(NSString *)title description:(NSString *)body images:(NSArray *)images;
+
+- (instancetype)initWithDate:(NSDate *)date title:(NSString *)title description:(NSString *)body imageUrls:(NSArray *)imageUrls imageLoader:(MTRDropboxLoader *)loader;
+
+- (NSArray *)retreiveImages;
+
+- (void)retreiveImages:(void (^)(NSArray *))imageHandler;
+
+- (void)listen:(id<MTRPostChangeDelegate>)delegate;
 
 @end

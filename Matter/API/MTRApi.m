@@ -8,10 +8,13 @@
 
 #import "MTRApi.h"
 #import <Dropbox/Dropbox.h>
+#import "MTRDropboxLoader.h"
 
 @interface MTRApi ()
 
 @property (nonatomic, readonly) DBFilesystem *filesystem;
+@property (nonatomic, readonly) MTRDropboxLoader *loader;
+@property (nonatomic, readonly) NSDateFormatter *formatter;
 
 @end
 
@@ -38,6 +41,10 @@
     if (self) {
         DBAccount *account = [[DBAccountManager sharedManager] linkedAccount] ;
         _filesystem = [[DBFilesystem alloc] initWithAccount:account];
+        _loader = [[MTRDropboxLoader alloc] initWithFilesystem:_filesystem];
+        _formatter = [NSDateFormatter new];
+        [_formatter setDateFormat:@"YYYY-MM-DD HH:mm"];
+        [_formatter setTimeZone:[NSTimeZone defaultTimeZone]];
     }
     return self;
 }
@@ -57,19 +64,20 @@
         DBPath *dbPath = [[DBPath root] childPath:fileName];
         DBFile *file = [self.filesystem createFile:dbPath error:&textError];
         if (file) {
-            NSString *text = [NSString stringWithFormat:@"%@\n\n%@", post.title, post.body];
+            NSString *text = [NSString stringWithFormat:@"%@\n\n%@\n\n%@", [self.formatter stringFromDate:post.postDate], post.title, post.body];
             [file writeString:text error:&textError];
         }
         
         // Images
         DBError *imageError = nil;
-        NSInteger imagesLength = post.images.count;
+        NSArray *imagesArray = [post retreiveImages];
+        NSInteger imagesLength = [imagesArray count];
         for (int i = 0; i < imagesLength; i++) {
             NSString *imageFilePath = [NSString stringWithFormat:@"%@/%d.png", [self pathForPost:post], i];
             DBPath *dbImagePath = [[DBPath root] childPath:imageFilePath];
             DBFile *file = [self.filesystem createFile:dbImagePath error:&imageError];
             if (file) {
-                NSData *imageData = UIImagePNGRepresentation(post.images[i]);
+                NSData *imageData = UIImagePNGRepresentation(imagesArray[i]);
                 [file writeData:imageData error:&imageError];
             }
         }
@@ -80,6 +88,8 @@
     });
     
 }
+
+#pragma mark Post retrieval
 
 - (NSString *)pathForPost:(MTRPost *)post
 {
@@ -133,12 +143,23 @@
         NSMutableArray *postsArray = [NSMutableArray new];
         
         for (DBFileInfo *info in fileInfos) {
+            
             DBPath *textPath = [info.path childPath:@"text.txt"];
             DBFile *file = [self.filesystem openFile:textPath error:&error];
             NSString *fileAsString = [file readString:&error];
             [file close];
             NSArray *splitFile = [fileAsString componentsSeparatedByString:@"\n\n"];
-            [postsArray addObject:[[MTRPost alloc] initWithTitle:splitFile[0] description:splitFile[1] images:nil]];
+            
+            NSMutableArray *imageUrls = [NSMutableArray new];
+            NSArray *filesOfPost = [self.filesystem listFolder:info.path error:nil];
+            for (DBFileInfo *file in filesOfPost) {
+                if ([self isImageFile:file]) {
+                    [imageUrls addObject:file];
+                }
+            }
+            
+            [postsArray addObject:[[MTRPost alloc] initWithDate:[self.formatter dateFromString:splitFile[0]]  title:splitFile[1] description:splitFile[2] imageUrls:imageUrls imageLoader:self.loader]];
+            
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -149,6 +170,16 @@
     
 }
 
+- (BOOL)isTextFile:(DBFileInfo *)info
+{
+    return [[info.path.stringValue pathExtension] isEqualToString:@"txt"];
+}
+
+- (BOOL)isImageFile:(DBFileInfo *)info
+{
+    return [[info.path.stringValue pathExtension] isEqualToString:@"png"];
+}
+
 - (void)postsWithMonthOffset:(NSInteger)monthOffset callback:(void (^)(NSArray *))posts
 {
     NSDate *date = [NSDate new];
@@ -156,6 +187,13 @@
     components.month = monthOffset;
     date = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:date options:0];
     [self postsFromMonthOfDate:date callback:posts];
+}
+
+#pragma mark Post listening
+
+- (void)listenToPost:(MTRPost *)post withDelegate:(id<MTRPostChangeDelegate>)delegate
+{
+    
 }
 
 @end

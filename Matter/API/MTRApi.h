@@ -21,4 +21,6 @@
 
 - (void)postsWithMonthOffset:(NSInteger)monthOffset callback:(void (^)(NSArray *))posts;
 
+- (void)listenToPost:(MTRPost *)post withDelegate:(id<MTRPostChangeDelegate>)delegate;
+
 @end
