@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MTRColors.h"
 
 @interface MTRPostCell : UITableViewCell
-
-@property(nonatomic, readwrite)
 
 @end
