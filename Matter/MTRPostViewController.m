@@ -209,6 +209,7 @@
     [_loadingView startLoading];
     [[MTRApi sharedInstance] post:post withCompletion:^(MTRPost *post) {
         [_loadingView stopLoading];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
 }
 
