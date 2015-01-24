@@ -150,6 +150,9 @@
     MTRPost *post = _posts[indexPath.row];
     postCell.titleText = post.title;
     postCell.descriptionText = post.body;
+    postCell.showImages = post.hasImages;
+    postCell.image = nil;
+    [postCell setDate:post.postDate];
     if (indexPath.row == 0) {
         postCell.componentType = MTRComponentTypeTop;
     } else if(indexPath.row == _posts.count-1) {
@@ -157,6 +160,11 @@
     } else {
         postCell.componentType = MTRComponentTypeMiddle;
     }
+    [post retreiveImages:^(NSArray *images) {
+        if (images != nil && images.count > 0) {
+            postCell.image = images[0];
+        }
+    }];
     
     return postCell;
 }
