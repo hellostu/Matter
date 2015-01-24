@@ -148,6 +148,9 @@
     MTRPost *post = _posts[indexPath.row];
     postCell.titleText = post.title;
     postCell.descriptionText = post.body;
+    postCell.showImages = post.hasImages;
+    postCell.image = nil;
+    [postCell setDate:post.postDate];
     if (indexPath.row == 0) {
         postCell.componentType = MTRComponentTypeTop;
     } else if(indexPath.row == _posts.count-1) {

@@ -17,4 +17,6 @@
 @property(nonatomic, readwrite) BOOL    showImages;
 @property(nonatomic, strong) UIImage    *image;
 
+- (void)setDate:(NSDate *)date;
+
 @end
