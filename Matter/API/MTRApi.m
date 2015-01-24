@@ -134,12 +134,23 @@
         NSMutableArray *postsArray = [NSMutableArray new];
         
         for (DBFileInfo *info in fileInfos) {
+            
             DBPath *textPath = [info.path childPath:@"text.txt"];
             DBFile *file = [self.filesystem openFile:textPath error:&error];
             NSString *fileAsString = [file readString:&error];
             [file close];
             NSArray *splitFile = [fileAsString componentsSeparatedByString:@"\n\n"];
-            [postsArray addObject:[[MTRPost alloc] initWithTitle:splitFile[0] description:splitFile[1] images:nil]];
+            
+            NSMutableArray *imageUrls = [NSMutableArray new];
+            NSArray *filesOfPost = [self.filesystem listFolder:info.path error:nil];
+            for (DBFileInfo *file in filesOfPost) {
+                if ([self isImageFile:file]) {
+                    [imageUrls addObject:file];
+                }
+            }
+            
+            [postsArray addObject:[[MTRPost alloc] initWithTitle:splitFile[0] description:splitFile[1] imageUrls:imageUrls]];
+            
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -148,6 +159,16 @@
         
     });
     
+}
+
+- (BOOL)isTextFile:(DBFileInfo *)info
+{
+    return [[info.path.stringValue pathExtension] isEqualToString:@"txt"];
+}
+
+- (BOOL)isImageFile:(DBFileInfo *)info
+{
+    return [[info.path.stringValue pathExtension] isEqualToString:@"png"];
 }
 
 - (void)postsWithMonthOffset:(NSInteger)monthOffset callback:(void (^)(NSArray *))posts

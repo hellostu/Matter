@@ -34,6 +34,18 @@
     return self;
 }
 
+- (instancetype)initWithTitle:(NSString *)title description:(NSString *)body imageUrls:(NSArray *)imageUrls
+{
+    self = [super init];
+    if (self) {
+        _postDate = [NSDate date];
+        _title = title;
+        _body = body;
+        _imageUrls = [NSArray arrayWithArray:imageUrls];
+    }
+    return self;
+}
+
 - (NSArray *)retreiveImages
 {
     if (self.images) {

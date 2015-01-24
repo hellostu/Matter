@@ -16,6 +16,8 @@
 
 - (instancetype)initWithTitle:(NSString *)title description:(NSString *)body images:(NSArray *)images;
 
+- (instancetype)initWithTitle:(NSString *)title description:(NSString *)body imageUrls:(NSArray *)imageUrls;
+
 - (NSArray *)retreiveImages;
 
 @end
