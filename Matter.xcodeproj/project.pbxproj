@@ -30,6 +30,7 @@
 		4453223E1A739C9B0017D04B /* MTRTransitionContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4453223D1A739C9B0017D04B /* MTRTransitionContainer.m */; };
 		445322411A739F1A0017D04B /* MTRTimelineComponentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 445322401A739F1A0017D04B /* MTRTimelineComponentView.m */; };
 		445322441A73B1760017D04B /* MTRLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 445322431A73B1760017D04B /* MTRLoadingView.m */; };
+		445322471A73D3520017D04B /* MTRAttachmentViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 445322461A73D3520017D04B /* MTRAttachmentViewCell.m */; };
 		860E4C1D1A72F4D700E16A1D /* MTRPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 860E4C1C1A72F4D700E16A1D /* MTRPost.m */; };
 		860E4C201A72F62400E16A1D /* MTRApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 860E4C1F1A72F62400E16A1D /* MTRApi.m */; };
 /* End PBXBuildFile section */
@@ -82,6 +83,8 @@
 		445322401A739F1A0017D04B /* MTRTimelineComponentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRTimelineComponentView.m; sourceTree = "<group>"; };
 		445322421A73B1760017D04B /* MTRLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRLoadingView.h; sourceTree = "<group>"; };
 		445322431A73B1760017D04B /* MTRLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRLoadingView.m; sourceTree = "<group>"; };
+		445322451A73D3520017D04B /* MTRAttachmentViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRAttachmentViewCell.h; sourceTree = "<group>"; };
+		445322461A73D3520017D04B /* MTRAttachmentViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRAttachmentViewCell.m; sourceTree = "<group>"; };
 		860E4C1B1A72F4D700E16A1D /* MTRPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTRPost.h; path = API/MTRPost.h; sourceTree = "<group>"; };
 		860E4C1C1A72F4D700E16A1D /* MTRPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTRPost.m; path = API/MTRPost.m; sourceTree = "<group>"; };
 		860E4C1E1A72F62400E16A1D /* MTRApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTRApi.h; path = API/MTRApi.h; sourceTree = "<group>"; };
@@ -215,6 +218,8 @@
 				445322401A739F1A0017D04B /* MTRTimelineComponentView.m */,
 				445322421A73B1760017D04B /* MTRLoadingView.h */,
 				445322431A73B1760017D04B /* MTRLoadingView.m */,
+				445322451A73D3520017D04B /* MTRAttachmentViewCell.h */,
+				445322461A73D3520017D04B /* MTRAttachmentViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -350,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				445322271A730BA90017D04B /* MTRPostCreationView.m in Sources */,
+				445322471A73D3520017D04B /* MTRAttachmentViewCell.m in Sources */,
 				445322351A7324B90017D04B /* MTRColors.m in Sources */,
 				445321F11A72E9A90017D04B /* MTRRootViewController.m in Sources */,
 				860E4C1D1A72F4D700E16A1D /* MTRPost.m in Sources */,

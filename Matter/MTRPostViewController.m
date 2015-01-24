@@ -11,13 +11,14 @@
 #import "MTRLoadingView.h"
 #import "MTRApi.h"
 #import "MTRPost.h"
+#import "MTRAttachmentViewCell.h"
 
 #define PADDING_LEFT 10
 #define PADDING_RIGHT 10
 #define PADDING_TOP 20
 #define PADDING_BOTTOM 20
 
-@interface MTRPostViewController () <UITextViewDelegate>{
+@interface MTRPostViewController () <UIImagePickerControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate>{
     MTRLoadingView *_loadingView;
     UITextField                 *_titleTextField;
     UITextView                  *_descriptionTextView;
@@ -28,6 +29,8 @@
     NSLayoutConstraint          *_doneBarTopConstraint;
     
     CGSize                      _keyboardSize;
+    
+    NSMutableArray              *_attachments;
 }
 @end
 
@@ -43,6 +46,7 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        _attachments = [[NSMutableArray alloc] init];
         
     }
     return self;
@@ -125,7 +129,6 @@
     
     _descriptionTextView = [[UITextView alloc] init];
     _descriptionTextView.translatesAutoresizingMaskIntoConstraints = NO;
-    _descriptionTextView.delegate = self;
     [self.view addSubview:_descriptionTextView];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_descriptionTextView
                                                           attribute:NSLayoutAttributeTop
@@ -156,14 +159,52 @@
                                                          multiplier:0.0
                                                            constant:80.0f]];
     
+    UIButton *attachmentButton = [[UIButton alloc] init];
+    attachmentButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [attachmentButton addTarget:self action:@selector(attachmentButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [attachmentButton setTitle:@"Add an Attachment" forState:UIControlStateNormal];
+    [self.view addSubview:attachmentButton];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:attachmentButton
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:_descriptionTextView
+                                                          attribute:NSLayoutAttributeBottom
+                                                         multiplier:1.0
+                                                           constant:10.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:attachmentButton
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:PADDING_LEFT]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:attachmentButton
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:-PADDING_RIGHT]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:attachmentButton
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeHeight
+                                                         multiplier:0.0
+                                                           constant:30.0f]];
+    
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:_flowLayout];
     _collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    _collectionView.backgroundColor = [MTRColors darkCoolGreyWithAlpha:1.0f];
+    [_collectionView registerClass:[MTRAttachmentViewCell class] forCellWithReuseIdentifier:@"attachmentCell"];
+    _collectionView.dataSource = self;
+    _collectionView.delegate = self;
     [self.view addSubview:_collectionView];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_collectionView
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:_descriptionTextView
+                                                             toItem:attachmentButton
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
                                                            constant:10.0]];
@@ -316,11 +357,60 @@
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
+#pragma mark UIImagePickerControllerDelegate
+//////////////////////////////////////////////////////////////////////////
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = (UIImage *) [info objectForKey:UIImagePickerControllerEditedImage];
+    [_attachments addObject:image];
+    [_collectionView reloadData];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark UICollectionViewDatasource
+//////////////////////////////////////////////////////////////////////////
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    MTRAttachmentViewCell *attachmentCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"attachmentCell" forIndexPath:indexPath];
+    UIImage *image = _attachments[indexPath.row];
+    attachmentCell.imageView.image = image;
+    return attachmentCell;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return _attachments.count;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark UICollectionViewDelegateFlowlayout
+//////////////////////////////////////////////////////////////////////////
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(70.0f, 70.0f);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 20.0f;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(10.0f, 10.0f, 10.0f, 10.0f);
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
 #pragma mark Actions
 //////////////////////////////////////////////////////////////////////////
 
 - (void)postButtonPressed {
-    MTRPost *post = [[MTRPost alloc] initWithTitle:_titleTextField.text description:_descriptionTextView.text images:@[[UIImage imageNamed:@"dropbox_icon.png"]]];
+    MTRPost *post = [[MTRPost alloc] initWithTitle:_titleTextField.text description:_descriptionTextView.text images:_attachments];
     [_loadingView startLoading];
     [[MTRApi sharedInstance] post:post withCompletion:^(MTRPost *post) {
         [_loadingView stopLoading];
@@ -331,6 +421,24 @@
 - (void)keyboardDonePressed {
     [_titleTextField resignFirstResponder];
     [_descriptionTextView resignFirstResponder];
+}
+
+- (void)attachmentButtonPressed {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Add an Attachment" message:@"Choose an attachment source:" preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Take a Photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self takeAPhotoButtonPressed];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)takeAPhotoButtonPressed {
+    UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
+    cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
+    cameraUI.allowsEditing = YES;
+    cameraUI.delegate = self;
+    
+    [self presentViewController:cameraUI animated:YES completion:nil];
 }
 
 //////////////////////////////////////////////////////////////////////////
