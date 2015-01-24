@@ -24,6 +24,8 @@
 		4453222C1A731E040017D04B /* MTRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4453222B1A731E040017D04B /* MTRLoginViewController.m */; };
 		445322301A731F280017D04B /* dropbox_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4453222E1A731F280017D04B /* dropbox_icon.png */; };
 		445322311A731F280017D04B /* dropbox_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4453222F1A731F280017D04B /* dropbox_icon@2x.png */; };
+		445322351A7324B90017D04B /* MTRColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 445322341A7324B90017D04B /* MTRColors.m */; };
+		445322381A7326630017D04B /* MTRPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 445322371A7326630017D04B /* MTRPostViewController.m */; };
 		860E4C1D1A72F4D700E16A1D /* MTRPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 860E4C1C1A72F4D700E16A1D /* MTRPost.m */; };
 		860E4C201A72F62400E16A1D /* MTRApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 860E4C1F1A72F62400E16A1D /* MTRApi.m */; };
 /* End PBXBuildFile section */
@@ -64,6 +66,10 @@
 		4453222B1A731E040017D04B /* MTRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRLoginViewController.m; sourceTree = "<group>"; };
 		4453222E1A731F280017D04B /* dropbox_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropbox_icon.png; sourceTree = "<group>"; };
 		4453222F1A731F280017D04B /* dropbox_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox_icon@2x.png"; sourceTree = "<group>"; };
+		445322331A7324B90017D04B /* MTRColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRColors.h; sourceTree = "<group>"; };
+		445322341A7324B90017D04B /* MTRColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRColors.m; sourceTree = "<group>"; };
+		445322361A7326630017D04B /* MTRPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRPostViewController.h; sourceTree = "<group>"; };
+		445322371A7326630017D04B /* MTRPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRPostViewController.m; sourceTree = "<group>"; };
 		860E4C1B1A72F4D700E16A1D /* MTRPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTRPost.h; path = API/MTRPost.h; sourceTree = "<group>"; };
 		860E4C1C1A72F4D700E16A1D /* MTRPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTRPost.m; path = API/MTRPost.m; sourceTree = "<group>"; };
 		860E4C1E1A72F62400E16A1D /* MTRApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTRApi.h; path = API/MTRApi.h; sourceTree = "<group>"; };
@@ -119,6 +125,7 @@
 			children = (
 				860E4C171A72F4A100E16A1D /* API */,
 				4453221F1A72EEBB0017D04B /* ViewControllers */,
+				445322321A7324A90017D04B /* Constants */,
 				4453222D1A731EDD0017D04B /* Resources */,
 				445321EC1A72E9A90017D04B /* AppDelegate.h */,
 				445321ED1A72E9A90017D04B /* AppDelegate.m */,
@@ -177,6 +184,8 @@
 				445321F01A72E9A90017D04B /* MTRRootViewController.m */,
 				4453222A1A731E040017D04B /* MTRLoginViewController.h */,
 				4453222B1A731E040017D04B /* MTRLoginViewController.m */,
+				445322361A7326630017D04B /* MTRPostViewController.h */,
+				445322371A7326630017D04B /* MTRPostViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -197,6 +206,15 @@
 				4453222F1A731F280017D04B /* dropbox_icon@2x.png */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		445322321A7324A90017D04B /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				445322331A7324B90017D04B /* MTRColors.h */,
+				445322341A7324B90017D04B /* MTRColors.m */,
+			);
+			name = Constants;
 			sourceTree = "<group>";
 		};
 		860E4C171A72F4A100E16A1D /* API */ = {
@@ -312,8 +330,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				445322271A730BA90017D04B /* MTRPostCreationView.m in Sources */,
+				445322351A7324B90017D04B /* MTRColors.m in Sources */,
 				445321F11A72E9A90017D04B /* MTRRootViewController.m in Sources */,
 				860E4C1D1A72F4D700E16A1D /* MTRPost.m in Sources */,
+				445322381A7326630017D04B /* MTRPostViewController.m in Sources */,
 				445321EE1A72E9A90017D04B /* AppDelegate.m in Sources */,
 				4453222C1A731E040017D04B /* MTRLoginViewController.m in Sources */,
 				860E4C201A72F62400E16A1D /* MTRApi.m in Sources */,
