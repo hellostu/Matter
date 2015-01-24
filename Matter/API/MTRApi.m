@@ -47,7 +47,7 @@
 #pragma mark Methods
 //////////////////////////////////////////////////////////////////////////
 
-- (void)post:(MTRPost *)post
+- (void)post:(MTRPost *)post withCompletion:(void (^)(MTRPost *))completion
 {
     DBError *error = nil;
     NSString *fileName = [NSString stringWithFormat:@"%@/text.txt", [self pathForPost:post]];
@@ -56,6 +56,7 @@
     if (file) {
         NSString *text = [NSString stringWithFormat:@"%@\n\n%@", post.title, post.body];
         [file writeString:text error:&error];
+        completion(post);
     }
 }
 

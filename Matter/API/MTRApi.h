@@ -13,6 +13,6 @@
 
 + (instancetype)sharedInstance;
 
-- (void)post:(MTRPost *)post;
+- (void)post:(MTRPost *)post withCompletion:(void (^)(MTRPost *))completion;
 
 @end
