@@ -92,8 +92,10 @@
         NSMutableArray *postsArray = [NSMutableArray new];
         
         for (DBFileInfo *info in fileInfos) {
-            DBFile *file = [self.filesystem openFile:info.path error:&error];
+            DBPath *textPath = [info.path childPath:@"text.txt"];
+            DBFile *file = [self.filesystem openFile:textPath error:&error];
             NSString *fileAsString = [file readString:&error];
+            [file close];
             NSArray *splitFile = [fileAsString componentsSeparatedByString:@"\n\n"];
             [postsArray addObject:[[MTRPost alloc] initWithTitle:splitFile[0] description:splitFile[1]]];
         }
