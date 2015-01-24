@@ -9,6 +9,8 @@
 #import "MTRTimelineComponentView.h"
 #import "MTRColors.h"
 
+#define BALL_DISTANCE_FROM_TOP 14.0f
+
 @implementation MTRTimelineComponentView
 
 //////////////////////////////////////////////////////////////////////////
@@ -37,7 +39,7 @@
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGRect rectangle1 = CGRectMake(0.0,(rect.size.height-rect.size.width)/2,rect.size.width,rect.size.width);
+    CGRect rectangle1 = CGRectMake(0.0,BALL_DISTANCE_FROM_TOP,rect.size.width,rect.size.width);
     CGContextBeginPath(context);
     CGContextSetFillColorWithColor(context, [MTRColors blue].CGColor);
     CGContextAddEllipseInRect(context, rectangle1);
@@ -47,13 +49,13 @@
     CGRect rectangle2 = CGRectZero;
     switch (_componentType) {
         case MTRComponentTypeTop:
-            rectangle2 = CGRectMake(rect.size.width/4,rect.size.height/2,rect.size.width/2,rect.size.height/2);
+            rectangle2 = CGRectMake(rect.size.width/4,rect.size.width/4 + BALL_DISTANCE_FROM_TOP,rect.size.width/2,rect.size.height-(BALL_DISTANCE_FROM_TOP + rect.size.width/4));
             break;
         case MTRComponentTypeMiddle:
             rectangle2 = CGRectMake(rect.size.width/4,0.0,rect.size.width/2,rect.size.height);
             break;
         case MTRComponentTypeBottom:
-            rectangle2 = CGRectMake(rect.size.width/4,0.0,rect.size.width/2,rect.size.height/2);
+            rectangle2 = CGRectMake(rect.size.width/4,0.0,rect.size.width/2,(BALL_DISTANCE_FROM_TOP + rect.size.width/4));
             break;
         default:
             break;

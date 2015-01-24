@@ -105,7 +105,7 @@
                                                                         toItem:_titleLabel
                                                                      attribute:NSLayoutAttributeBottom
                                                                     multiplier:1.0
-                                                                      constant:0.0]];
+                                                                      constant:10.0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_descriptionLabel
                                                                      attribute:NSLayoutAttributeLeft
                                                                      relatedBy:NSLayoutRelationEqual
@@ -123,6 +123,7 @@
         
         _imageView = [[UIImageView alloc] init];
         _imageView.translatesAutoresizingMaskIntoConstraints = NO;
+        _imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:_imageView];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imageView
                                                                      attribute:NSLayoutAttributeTop
@@ -130,7 +131,7 @@
                                                                         toItem:_descriptionLabel
                                                                      attribute:NSLayoutAttributeBottom
                                                                     multiplier:1.0
-                                                                      constant:0.0]];
+                                                                      constant:10.0]];
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imageView
                                                                      attribute:NSLayoutAttributeLeft
                                                                      relatedBy:NSLayoutRelationEqual
@@ -158,7 +159,7 @@
                                                                         toItem:self.contentView
                                                                      attribute:NSLayoutAttributeBottom
                                                                     multiplier:1.0
-                                                                      constant:-10.0]];
+                                                                      constant:0.0]];
     }
     return self;
 }
