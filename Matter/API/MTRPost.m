@@ -60,4 +60,14 @@
     }
 }
 
+- (void)retreiveImages:(void (^)(NSArray *))imageHandler
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray *images = [self retreiveImages];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            imageHandler(images);
+        });
+    });
+}
+
 @end

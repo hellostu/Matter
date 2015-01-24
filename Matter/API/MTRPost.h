@@ -21,4 +21,6 @@
 
 - (NSArray *)retreiveImages;
 
+- (void)retreiveImages:(void (^)(NSArray *))imageHandler;
+
 @end
