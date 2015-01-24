@@ -36,6 +36,8 @@
 		860E4C311A73C79100E16A1D /* MTRDropboxLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 860E4C301A73C79100E16A1D /* MTRDropboxLoader.m */; };
 		860E4C341A73E97400E16A1D /* new_post@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 860E4C321A73E97400E16A1D /* new_post@2x.png */; };
 		860E4C351A73E97400E16A1D /* new_post@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 860E4C331A73E97400E16A1D /* new_post@3x.png */; };
+		860E4C3C1A73F1C300E16A1D /* add_post@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 860E4C3A1A73F1C300E16A1D /* add_post@2x.png */; };
+		860E4C3D1A73F1C300E16A1D /* add_post@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 860E4C3B1A73F1C300E16A1D /* add_post@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +98,8 @@
 		860E4C301A73C79100E16A1D /* MTRDropboxLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTRDropboxLoader.m; path = API/MTRDropboxLoader.m; sourceTree = "<group>"; };
 		860E4C321A73E97400E16A1D /* new_post@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new_post@2x.png"; sourceTree = "<group>"; };
 		860E4C331A73E97400E16A1D /* new_post@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new_post@3x.png"; sourceTree = "<group>"; };
+		860E4C3A1A73F1C300E16A1D /* add_post@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_post@2x.png"; sourceTree = "<group>"; };
+		860E4C3B1A73F1C300E16A1D /* add_post@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_post@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +238,8 @@
 		4453222D1A731EDD0017D04B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				860E4C3A1A73F1C300E16A1D /* add_post@2x.png */,
+				860E4C3B1A73F1C300E16A1D /* add_post@3x.png */,
 				860E4C321A73E97400E16A1D /* new_post@2x.png */,
 				860E4C331A73E97400E16A1D /* new_post@3x.png */,
 				4453222E1A731F280017D04B /* dropbox_icon.png */,
@@ -346,6 +352,8 @@
 			files = (
 				445321F61A72E9A90017D04B /* Images.xcassets in Resources */,
 				445322291A730BAE0017D04B /* Default-568h@2x.png in Resources */,
+				860E4C3C1A73F1C300E16A1D /* add_post@2x.png in Resources */,
+				860E4C3D1A73F1C300E16A1D /* add_post@3x.png in Resources */,
 				445322311A731F280017D04B /* dropbox_icon@2x.png in Resources */,
 				445322301A731F280017D04B /* dropbox_icon.png in Resources */,
 				860E4C351A73E97400E16A1D /* new_post@3x.png in Resources */,
