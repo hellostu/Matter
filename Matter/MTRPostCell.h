@@ -15,8 +15,8 @@
 @property(nonatomic, strong) NSString   *titleText;
 @property(nonatomic, strong) NSString   *descriptionText;
 @property(nonatomic, readwrite) BOOL    showImages;
-@property(nonatomic, strong) UIImage    *image;
 
 - (void)setDate:(NSDate *)date;
+- (void)setImages:(NSArray *)images;
 
 @end

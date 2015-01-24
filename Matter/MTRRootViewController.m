@@ -151,7 +151,7 @@
     postCell.titleText = post.title;
     postCell.descriptionText = post.body;
     postCell.showImages = post.hasImages;
-    postCell.image = nil;
+    [postCell setImages:@[]];
     [postCell setDate:post.postDate];
     if (indexPath.row %2 == 0) {
         postCell.backgroundColor = [MTRColors backgroundBlue];
@@ -167,7 +167,7 @@
     }
     [post retreiveImages:^(NSArray *images) {
         if (images != nil && images.count > 0) {
-            postCell.image = images[0];
+            [postCell setImages:images];
         }
     }];
     
