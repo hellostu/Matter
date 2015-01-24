@@ -143,23 +143,7 @@
         NSMutableArray *postsArray = [NSMutableArray new];
         
         for (DBFileInfo *info in fileInfos) {
-            
-            DBPath *textPath = [info.path childPath:@"text.txt"];
-            DBFile *file = [self.filesystem openFile:textPath error:&error];
-            NSString *fileAsString = [file readString:&error];
-            [file close];
-            NSArray *splitFile = [fileAsString componentsSeparatedByString:@"\n\n"];
-            
-            NSMutableArray *imageUrls = [NSMutableArray new];
-            NSArray *filesOfPost = [self.filesystem listFolder:info.path error:nil];
-            for (DBFileInfo *file in filesOfPost) {
-                if ([self isImageFile:file]) {
-                    [imageUrls addObject:file];
-                }
-            }
-            
-            [postsArray addObject:[[MTRPost alloc] initWithDate:[self.formatter dateFromString:splitFile[0]]  title:splitFile[1] description:splitFile[2] imageUrls:imageUrls imageLoader:self.loader]];
-            
+            [postsArray addObject:[self getPostFromFolder:info]];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -168,6 +152,26 @@
         
     });
     
+}
+
+- (MTRPost *)getPostFromFolder:(DBFileInfo *)folder
+{
+    DBError *error = nil;
+    DBPath *textPath = [folder.path childPath:@"text.txt"];
+    DBFile *file = [self.filesystem openFile:textPath error:&error];
+    NSString *fileAsString = [file readString:&error];
+    [file close];
+    NSArray *splitFile = [fileAsString componentsSeparatedByString:@"\n\n"];
+    
+    NSMutableArray *imageUrls = [NSMutableArray new];
+    NSArray *filesOfPost = [self.filesystem listFolder:folder.path error:nil];
+    for (DBFileInfo *file in filesOfPost) {
+        if ([self isImageFile:file]) {
+            [imageUrls addObject:file];
+        }
+    }
+    
+    return [[MTRPost alloc] initWithDate:[self.formatter dateFromString:splitFile[0]]  title:splitFile[1] description:splitFile[2] imageUrls:imageUrls imageLoader:self.loader];
 }
 
 - (BOOL)isTextFile:(DBFileInfo *)info
@@ -195,8 +199,16 @@
 {
     NSString *relativePath = [self pathForPost:post];
     DBPath *path = [[DBPath root] childPath:relativePath];
+    __weak MTRApi *weakSelf = self;
     [self.filesystem addObserver:self forPathAndChildren:path block:^() {
-        NSLog(@"Something changed!!");
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            MTRPost *post = [weakSelf getPostFromFolder:[weakSelf.filesystem fileInfoForPath:path error:nil]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [delegate postChanged:post];
+            });
+            
+        });
     }];
 }
 

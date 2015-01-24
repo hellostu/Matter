@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "MTRDropboxLoader.h"
+@class MTRPost;
 
 @protocol MTRPostChangeDelegate <NSObject>
+
+- (void)postChanged:(MTRPost *)post;
 
 @end
 
