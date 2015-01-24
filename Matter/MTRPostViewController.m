@@ -16,7 +16,7 @@
 #define PADDING_LEFT 10
 #define PADDING_RIGHT 10
 #define PADDING_TOP 20
-#define PADDING_BOTTOM 20
+#define PADDING_BOTTOM 0
 
 @interface MTRPostViewController () <UIImagePickerControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate>{
     MTRLoadingView *_loadingView;
@@ -225,8 +225,10 @@
     
     UIButton *postButton = [[UIButton alloc] init];
     postButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [postButton setTitle:@"POST" forState:UIControlStateNormal];
+    [postButton setImage:[UIImage imageNamed:@"add_post"] forState:UIControlStateNormal];
+    postButton.contentMode = UIViewContentModeCenter;
     [postButton addTarget:self action:@selector(postButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    
     [self.view addSubview:postButton];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:postButton
                                                           attribute:NSLayoutAttributeTop
@@ -255,7 +257,7 @@
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeHeight
                                                          multiplier:0.0
-                                                           constant:30.0f]];
+                                                           constant:64.0f]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:postButton
                                                           attribute:NSLayoutAttributeBottom
                                                           relatedBy:NSLayoutRelationEqual

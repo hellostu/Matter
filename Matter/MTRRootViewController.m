@@ -76,9 +76,11 @@
                                                          multiplier:1.0
                                                            constant:0.0]];
     
-    UIView *postBar = [[UIView alloc] init];
+    UIImageView *postBar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"new_post"]];
     postBar.translatesAutoresizingMaskIntoConstraints = NO;
-    postBar.backgroundColor = [MTRColors blue];
+    postBar.backgroundColor = [UIColor whiteColor];
+    postBar.contentMode = UIViewContentModeCenter;
+    //postBar.image = [UIImage imageNamed:@"new_post"];
     postBar.userInteractionEnabled = YES;
     [self.view addSubview:postBar];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:postBar
@@ -108,7 +110,7 @@
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeHeight
                                                          multiplier:0.0
-                                                           constant:44.0]];
+                                                           constant:64.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:postBar
                                                           attribute:NSLayoutAttributeBottom
                                                           relatedBy:NSLayoutRelationEqual
