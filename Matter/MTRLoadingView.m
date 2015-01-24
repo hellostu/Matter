@@ -39,8 +39,29 @@
                                                           attribute:NSLayoutAttributeCenterY
                                                          multiplier:1.0
                                                            constant:0.0]];
+        self.alpha = 0.0f;
     }
     return self;
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Methods
+//////////////////////////////////////////////////////////////////////////
+
+- (void)startLoading {
+    [_activityIndicatorView startAnimating];
+    [UIView animateWithDuration:0.2 animations:^{
+        self.alpha = 1.0;
+    }];
+}
+
+- (void)stopLoading {
+    [UIView animateWithDuration:0.2 animations:^{
+        self.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        [_activityIndicatorView stopAnimating];
+    }];
 }
 
 @end
