@@ -12,5 +12,7 @@
 @interface MTRPostCell : UITableViewCell
 
 @property(nonatomic, readwrite) MTRComponentType componentType;
+@property(nonatomic, strong) NSString *titleText;
+@property(nonatomic, strong) NSString *descriptionText;
 
 @end
