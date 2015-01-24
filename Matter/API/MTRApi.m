@@ -51,12 +51,11 @@
 
 - (NSString *)pathForPost:(MTRPost *)post
 {
-    NSCalendar *calendar = [NSCalendar new];
-    NSDateComponents *component = [calendar components:0 fromDate:post.postDate];
-    NSString *year = [NSString stringWithFormat:@"%ld", (long)[component year]];
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"dd-MM-YYYY HH:mm"];
     [formatter setTimeZone:[NSTimeZone systemTimeZone]];
+    [formatter setDateFormat:@"YYYY"];
+    NSString *year = [formatter stringFromDate:post.postDate];
+    [formatter setDateFormat:@"MM-MMMM"];
     NSString *month = [formatter stringFromDate:post.postDate];
     [formatter setDateFormat:@"dd-HH:mm"];
     NSString *folder = [formatter stringFromDate:post.postDate];
