@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    MTRComponentTypeTop,
+    MTRComponentTypeMiddle,
+    MTRComponentTypeBottom,
+} MTRComponentType;
+
 @interface MTRTimelineComponentView : UIView
+
+@property(nonatomic, readwrite) MTRComponentType componentType;
+
+- (id)initWithFrame:(CGRect)frame type:(MTRComponentType)type;
 
 @end
