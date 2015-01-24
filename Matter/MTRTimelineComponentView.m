@@ -9,7 +9,7 @@
 #import "MTRTimelineComponentView.h"
 #import "MTRColors.h"
 
-#define BALL_DISTANCE_FROM_TOP 14.0f
+#define BALL_DISTANCE_FROM_TOP 13.0f
 
 @implementation MTRTimelineComponentView
 

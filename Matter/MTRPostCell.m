@@ -225,7 +225,7 @@
                                                                         toItem:self.contentView
                                                                      attribute:NSLayoutAttributeBottom
                                                                     multiplier:1.0
-                                                                      constant:0.0]];
+                                                                      constant:-PADDING_BOTTOM]];
         _imageHeightConstraint = [NSLayoutConstraint constraintWithItem:_imageView
                                                               attribute:NSLayoutAttributeHeight
                                                               relatedBy:NSLayoutRelationEqual
