@@ -76,4 +76,9 @@
     [[MTRApi sharedInstance] listenToPost:self withDelegate:delegate];
 }
 
+- (BOOL)hasImages
+{
+    return [self.images count] > 0 || [self.imageUrls count] > 0;
+}
+
 @end

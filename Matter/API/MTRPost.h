@@ -21,6 +21,7 @@
 @property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) NSString *body;
 @property (nonatomic, readonly) NSDate *postDate;
+@property (nonatomic, readonly) BOOL hasImages;
 
 - (instancetype)initWithTitle:(NSString *)title description:(NSString *)body images:(NSArray *)images;
 
