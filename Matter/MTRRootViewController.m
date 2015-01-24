@@ -34,6 +34,8 @@
 - (id)init {
     if ( (self = [super init]) != nil) {
         self.title = @"Matter";
+        _tableView.rowHeight = UITableViewAutomaticDimension;
+        _tableView.estimatedRowHeight = 44.0f;
     }
     return self;
 }
@@ -49,6 +51,7 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
     _tableView.dataSource = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView registerClass:[MTRPostCell class] forCellReuseIdentifier:@"postCell"];
     [self.view addSubview:_tableView];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
@@ -144,6 +147,14 @@
     MTRPostCell *postCell = [tableView dequeueReusableCellWithIdentifier:@"postCell"];
     MTRPost *post = _posts[indexPath.row];
     postCell.textLabel.text = post.title;
+    if (indexPath.row == 0) {
+        postCell.componentType = MTRComponentTypeTop;
+    } else if(indexPath.row == _posts.count-1) {
+        postCell.componentType = MTRComponentTypeBottom;
+    } else {
+        postCell.componentType = MTRComponentTypeMiddle;
+    }
+    
     return postCell;
 }
 
