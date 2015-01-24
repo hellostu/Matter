@@ -8,6 +8,13 @@
 
 #import "MTRPost.h"
 
+@interface MTRPost ()
+
+@property (nonatomic, readonly) NSArray *images;
+@property (nonatomic, readonly) NSArray *imageUrls;
+
+@end
+
 @implementation MTRPost
 
 //////////////////////////////////////////////////////////////////////////
@@ -25,6 +32,18 @@
         _images = [NSArray arrayWithArray:images];
     }
     return self;
+}
+
+- (NSArray *)retreiveImages
+{
+    if (self.images) {
+        return self.images;
+    } else if ([self.imageUrls count] > 0) {
+        //TODO
+        return nil;
+    } else {
+        return nil;
+    }
 }
 
 @end

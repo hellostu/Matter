@@ -63,13 +63,14 @@
         
         // Images
         DBError *imageError = nil;
-        NSInteger imagesLength = post.images.count;
+        NSArray *imagesArray = [post retreiveImages];
+        NSInteger imagesLength = [imagesArray count];
         for (int i = 0; i < imagesLength; i++) {
             NSString *imageFilePath = [NSString stringWithFormat:@"%@/%d.png", [self pathForPost:post], i];
             DBPath *dbImagePath = [[DBPath root] childPath:imageFilePath];
             DBFile *file = [self.filesystem createFile:dbImagePath error:&imageError];
             if (file) {
-                NSData *imageData = UIImagePNGRepresentation(post.images[i]);
+                NSData *imageData = UIImagePNGRepresentation(imagesArray[i]);
                 [file writeData:imageData error:&imageError];
             }
         }
