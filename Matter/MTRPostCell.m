@@ -20,7 +20,7 @@
     UILabel *_postTimeLabel;
     UILabel *_titleLabel;
     UILabel *_descriptionLabel;
-    UIImageView *_imageView;
+    UIScrollView *_imagesView;
     NSLayoutConstraint *_imageHeightConstraint;
 }
 @end
@@ -28,7 +28,6 @@
 @implementation MTRPostCell
 @dynamic descriptionText;
 @dynamic titleText;
-@dynamic image;
 
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
@@ -194,39 +193,39 @@
                                                                     multiplier:1.0
                                                                       constant:-PADDING_RIGHT]];
         
-        _imageView = [[UIImageView alloc] init];
-        _imageView.translatesAutoresizingMaskIntoConstraints = NO;
-        _imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.contentView addSubview:_imageView];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imageView
+        _imagesView = [[UIScrollView alloc] init];
+        _imagesView.translatesAutoresizingMaskIntoConstraints = NO;
+        _imagesView.contentMode = UIViewContentModeScaleAspectFit;
+        [self.contentView addSubview:_imagesView];
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imagesView
                                                                      attribute:NSLayoutAttributeTop
                                                                      relatedBy:NSLayoutRelationEqual
                                                                         toItem:_descriptionLabel
                                                                      attribute:NSLayoutAttributeBottom
                                                                     multiplier:1.0
                                                                       constant:10.0]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imageView
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imagesView
                                                                      attribute:NSLayoutAttributeLeft
                                                                      relatedBy:NSLayoutRelationEqual
                                                                         toItem:_timelineComponent
                                                                      attribute:NSLayoutAttributeRight
                                                                     multiplier:1.0
                                                                       constant:PADDING_LEFT]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imageView
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imagesView
                                                                      attribute:NSLayoutAttributeRight
                                                                      relatedBy:NSLayoutRelationEqual
                                                                         toItem:self.contentView
                                                                      attribute:NSLayoutAttributeRight
                                                                     multiplier:1.0
                                                                       constant:-PADDING_RIGHT]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imageView
+        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_imagesView
                                                                      attribute:NSLayoutAttributeBottom
                                                                      relatedBy:NSLayoutRelationEqual
                                                                         toItem:self.contentView
                                                                      attribute:NSLayoutAttributeBottom
                                                                     multiplier:1.0
-                                                                      constant:0.0]];
-        _imageHeightConstraint = [NSLayoutConstraint constraintWithItem:_imageView
+                                                                      constant:-PADDING_BOTTOM]];
+        _imageHeightConstraint = [NSLayoutConstraint constraintWithItem:_imagesView
                                                               attribute:NSLayoutAttributeHeight
                                                               relatedBy:NSLayoutRelationEqual
                                                                  toItem:self.contentView
@@ -278,15 +277,6 @@
     [self layoutIfNeeded];
 }
 
-- (UIImage *)image {
-    return _imageView.image;
-}
-
-- (void)setImage:(UIImage *)image {
-    _imageView.image = image;
-    [self invalidateIntrinsicContentSize];
-}
-
 //////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark Methods
@@ -303,6 +293,22 @@
     
     [dateFormatter setDateFormat:@"HH:mm"];
     _postTimeLabel.text = [dateFormatter stringFromDate:date];
+}
+
+- (void)setImages:(NSArray *)images {
+    for (UIView *view in _imagesView.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    for (int i=0; i<images.count; i++) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * 110,0, 100, 100)];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        UIImage *image = images[i];
+        imageView.image = image;
+        [_imagesView addSubview:imageView];
+    }
+    
+    _imagesView.contentSize = CGSizeMake(images.count * 110.0f, 100.0f);
 }
 
 @end

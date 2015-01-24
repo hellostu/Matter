@@ -34,8 +34,6 @@
 - (id)init {
     if ( (self = [super init]) != nil) {
         self.title = @"Matter";
-        _tableView.rowHeight = UITableViewAutomaticDimension;
-        _tableView.estimatedRowHeight = 44.0f;
     }
     return self;
 }
@@ -53,6 +51,8 @@
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView registerClass:[MTRPostCell class] forCellReuseIdentifier:@"postCell"];
+    _tableView.rowHeight = UITableViewAutomaticDimension;
+    _tableView.estimatedRowHeight = 44.0f;
     [self.view addSubview:_tableView];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
                                                           attribute:NSLayoutAttributeTop
@@ -78,7 +78,7 @@
     
     UIImageView *postBar = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"new_post"]];
     postBar.translatesAutoresizingMaskIntoConstraints = NO;
-    postBar.backgroundColor = [UIColor whiteColor];
+    postBar.backgroundColor = [MTRColors backgroundLightBlue];
     postBar.contentMode = UIViewContentModeCenter;
     //postBar.image = [UIImage imageNamed:@"new_post"];
     postBar.userInteractionEnabled = YES;
@@ -151,8 +151,13 @@
     postCell.titleText = post.title;
     postCell.descriptionText = post.body;
     postCell.showImages = post.hasImages;
-    postCell.image = nil;
+    [postCell setImages:@[]];
     [postCell setDate:post.postDate];
+    if (indexPath.row %2 == 0) {
+        postCell.backgroundColor = [MTRColors backgroundBlue];
+    } else {
+        postCell.backgroundColor = [MTRColors white];
+    }
     if (indexPath.row == 0) {
         postCell.componentType = MTRComponentTypeTop;
     } else if(indexPath.row == _posts.count-1) {
@@ -162,7 +167,7 @@
     }
     [post retreiveImages:^(NSArray *images) {
         if (images != nil && images.count > 0) {
-            postCell.image = images[0];
+            [postCell setImages:images];
         }
     }];
     [post listen:self];

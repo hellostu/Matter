@@ -16,5 +16,7 @@
 + (UIColor *)lighterCoolGrey;
 + (UIColor *)lightCoolGrey;
 + (UIColor *)darkCoolGreyWithAlpha:(CGFloat)alpha;
++ (UIColor *)backgroundBlue;
++ (UIColor *)backgroundLightBlue;
 
 @end

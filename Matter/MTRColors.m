@@ -25,6 +25,13 @@
 + (UIColor *)darkCoolGreyWithAlpha:(CGFloat)alpha {
     return [UIColor colorWithRed:0.239 green:0.275 blue:0.302 alpha:alpha];
 }
++ (UIColor *)backgroundBlue {
+    return [UIColor colorWithRed:237.0f/255.0f green:247.0f/255.0f blue:1.0 alpha:1.0];
+}
+
++ (UIColor *)backgroundLightBlue {
+    return [UIColor colorWithRed:246.0f/255.0f green:251.0f/255.0f blue:1.0 alpha:1.0];
+}
 
 
 @end
