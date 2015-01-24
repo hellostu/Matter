@@ -73,11 +73,11 @@
         NSArray *imagesArray = [post retreiveImages];
         NSInteger imagesLength = [imagesArray count];
         for (int i = 0; i < imagesLength; i++) {
-            NSString *imageFilePath = [NSString stringWithFormat:@"%@/%d.png", [self pathForPost:post], i];
+            NSString *imageFilePath = [NSString stringWithFormat:@"%@/%d.jpg", [self pathForPost:post], i];
             DBPath *dbImagePath = [[DBPath root] childPath:imageFilePath];
             DBFile *file = [self.filesystem createFile:dbImagePath error:&imageError];
             if (file) {
-                NSData *imageData = UIImagePNGRepresentation(imagesArray[i]);
+                NSData *imageData = UIImageJPEGRepresentation(imagesArray[i], 0.8);
                 [file writeData:imageData error:&imageError];
             }
         }
@@ -181,7 +181,7 @@
 
 - (BOOL)isImageFile:(DBFileInfo *)info
 {
-    return [[info.path.stringValue pathExtension] isEqualToString:@"png"];
+    return [[info.path.stringValue pathExtension] isEqualToString:@"jpg"];
 }
 
 - (void)postsWithMonthOffset:(NSInteger)monthOffset callback:(void (^)(NSArray *))posts
