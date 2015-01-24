@@ -21,6 +21,9 @@
 		4453221E1A72EDBC0017D04B /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4453221D1A72EDBC0017D04B /* Dropbox.framework */; };
 		445322271A730BA90017D04B /* MTRPostCreationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 445322221A72F4E70017D04B /* MTRPostCreationView.m */; };
 		445322291A730BAE0017D04B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 445322281A730BAE0017D04B /* Default-568h@2x.png */; };
+		4453222C1A731E040017D04B /* MTRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4453222B1A731E040017D04B /* MTRLoginViewController.m */; };
+		445322301A731F280017D04B /* dropbox_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4453222E1A731F280017D04B /* dropbox_icon.png */; };
+		445322311A731F280017D04B /* dropbox_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4453222F1A731F280017D04B /* dropbox_icon@2x.png */; };
 		860E4C1D1A72F4D700E16A1D /* MTRPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 860E4C1C1A72F4D700E16A1D /* MTRPost.m */; };
 		860E4C201A72F62400E16A1D /* MTRApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 860E4C1F1A72F62400E16A1D /* MTRApi.m */; };
 /* End PBXBuildFile section */
@@ -57,6 +60,10 @@
 		445322211A72F4E70017D04B /* MTRPostCreationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRPostCreationView.h; sourceTree = "<group>"; };
 		445322221A72F4E70017D04B /* MTRPostCreationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRPostCreationView.m; sourceTree = "<group>"; };
 		445322281A730BAE0017D04B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		4453222A1A731E040017D04B /* MTRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRLoginViewController.h; sourceTree = "<group>"; };
+		4453222B1A731E040017D04B /* MTRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRLoginViewController.m; sourceTree = "<group>"; };
+		4453222E1A731F280017D04B /* dropbox_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropbox_icon.png; sourceTree = "<group>"; };
+		4453222F1A731F280017D04B /* dropbox_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropbox_icon@2x.png"; sourceTree = "<group>"; };
 		860E4C1B1A72F4D700E16A1D /* MTRPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTRPost.h; path = API/MTRPost.h; sourceTree = "<group>"; };
 		860E4C1C1A72F4D700E16A1D /* MTRPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTRPost.m; path = API/MTRPost.m; sourceTree = "<group>"; };
 		860E4C1E1A72F62400E16A1D /* MTRApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTRApi.h; path = API/MTRApi.h; sourceTree = "<group>"; };
@@ -112,6 +119,7 @@
 			children = (
 				860E4C171A72F4A100E16A1D /* API */,
 				4453221F1A72EEBB0017D04B /* ViewControllers */,
+				4453222D1A731EDD0017D04B /* Resources */,
 				445321EC1A72E9A90017D04B /* AppDelegate.h */,
 				445321ED1A72E9A90017D04B /* AppDelegate.m */,
 				445321F51A72E9A90017D04B /* Images.xcassets */,
@@ -167,6 +175,8 @@
 				445322201A72F4CB0017D04B /* Views */,
 				445321EF1A72E9A90017D04B /* MTRRootViewController.h */,
 				445321F01A72E9A90017D04B /* MTRRootViewController.m */,
+				4453222A1A731E040017D04B /* MTRLoginViewController.h */,
+				4453222B1A731E040017D04B /* MTRLoginViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -178,6 +188,15 @@
 				445322221A72F4E70017D04B /* MTRPostCreationView.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		4453222D1A731EDD0017D04B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4453222E1A731F280017D04B /* dropbox_icon.png */,
+				4453222F1A731F280017D04B /* dropbox_icon@2x.png */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		860E4C171A72F4A100E16A1D /* API */ = {
@@ -273,6 +292,8 @@
 			files = (
 				445321F61A72E9A90017D04B /* Images.xcassets in Resources */,
 				445322291A730BAE0017D04B /* Default-568h@2x.png in Resources */,
+				445322311A731F280017D04B /* dropbox_icon@2x.png in Resources */,
+				445322301A731F280017D04B /* dropbox_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +315,7 @@
 				445321F11A72E9A90017D04B /* MTRRootViewController.m in Sources */,
 				860E4C1D1A72F4D700E16A1D /* MTRPost.m in Sources */,
 				445321EE1A72E9A90017D04B /* AppDelegate.m in Sources */,
+				4453222C1A731E040017D04B /* MTRLoginViewController.m in Sources */,
 				860E4C201A72F62400E16A1D /* MTRApi.m in Sources */,
 				445321EB1A72E9A90017D04B /* main.m in Sources */,
 			);

@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "MTRRootViewController.h"
+#import "MTRLoginViewController.h"
+
 #import <Dropbox/Dropbox.h>
 
 @interface AppDelegate ()
@@ -28,8 +30,9 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    MTRRootViewController *mainViewController = [[MTRRootViewController alloc] init];
-    self.window.rootViewController = mainViewController;
+    MTRLoginViewController *loginViewController = [[MTRLoginViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    self.window.rootViewController = navigationController;
     
     DBAccountManager *accountManager = [[DBAccountManager alloc] initWithAppKey:@"jb2quzu94h24k9x" secret:@"if3vy1wqrd7l9vp"];
     [DBAccountManager setSharedManager:accountManager];
