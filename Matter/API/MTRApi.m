@@ -8,10 +8,12 @@
 
 #import "MTRApi.h"
 #import <Dropbox/Dropbox.h>
+#import "MTRDropboxLoader.h"
 
 @interface MTRApi ()
 
 @property (nonatomic, readonly) DBFilesystem *filesystem;
+@property (nonatomic, readonly) MTRDropboxLoader *loader;
 
 @end
 
@@ -38,6 +40,7 @@
     if (self) {
         DBAccount *account = [[DBAccountManager sharedManager] linkedAccount] ;
         _filesystem = [[DBFilesystem alloc] initWithAccount:account];
+        _loader = [[MTRDropboxLoader alloc] initWithFilesystem:_filesystem];
     }
     return self;
 }
@@ -149,7 +152,7 @@
                 }
             }
             
-            [postsArray addObject:[[MTRPost alloc] initWithTitle:splitFile[0] description:splitFile[1] imageUrls:imageUrls]];
+            [postsArray addObject:[[MTRPost alloc] initWithTitle:splitFile[0] description:splitFile[1] imageUrls:imageUrls imageLoader:self.loader]];
             
         }
         

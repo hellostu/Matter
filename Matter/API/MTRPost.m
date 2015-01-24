@@ -7,11 +7,13 @@
 //
 
 #import "MTRPost.h"
+#import "MTRDropboxLoader.h"
 
 @interface MTRPost ()
 
 @property (nonatomic, readonly) NSArray *images;
 @property (nonatomic, readonly) NSArray *imageUrls;
+@property (nonatomic, readonly) MTRDropboxLoader *imageLoader;
 
 @end
 
@@ -34,7 +36,7 @@
     return self;
 }
 
-- (instancetype)initWithTitle:(NSString *)title description:(NSString *)body imageUrls:(NSArray *)imageUrls
+- (instancetype)initWithTitle:(NSString *)title description:(NSString *)body imageUrls:(NSArray *)imageUrls imageLoader:(MTRDropboxLoader *)loader
 {
     self = [super init];
     if (self) {
@@ -42,6 +44,7 @@
         _title = title;
         _body = body;
         _imageUrls = [NSArray arrayWithArray:imageUrls];
+        _imageLoader = loader;
     }
     return self;
 }
@@ -51,8 +54,7 @@
     if (self.images) {
         return self.images;
     } else if ([self.imageUrls count] > 0) {
-        //TODO
-        return nil;
+        return [self.imageLoader load:self.imageUrls];
     } else {
         return nil;
     }

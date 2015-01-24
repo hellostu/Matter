@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MTRDropboxLoader.h"
 
 @interface MTRPost : NSObject
 
@@ -16,7 +17,7 @@
 
 - (instancetype)initWithTitle:(NSString *)title description:(NSString *)body images:(NSArray *)images;
 
-- (instancetype)initWithTitle:(NSString *)title description:(NSString *)body imageUrls:(NSArray *)imageUrls;
+- (instancetype)initWithTitle:(NSString *)title description:(NSString *)body imageUrls:(NSArray *)imageUrls imageLoader:(MTRDropboxLoader *)loader;
 
 - (NSArray *)retreiveImages;
 
