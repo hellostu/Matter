@@ -49,15 +49,36 @@
 
 - (void)post:(MTRPost *)post withCompletion:(void (^)(MTRPost *))completion
 {
-    DBError *error = nil;
-    NSString *fileName = [NSString stringWithFormat:@"%@/text.txt", [self pathForPost:post]];
-    DBPath *dbPath = [[DBPath root] childPath:fileName];
-    DBFile *file = [self.filesystem createFile:dbPath error:&error];
-    if (file) {
-        NSString *text = [NSString stringWithFormat:@"%@\n\n%@", post.title, post.body];
-        [file writeString:text error:&error];
-        completion(post);
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        // Text file
+        DBError *textError = nil;
+        NSString *fileName = [NSString stringWithFormat:@"%@/text.txt", [self pathForPost:post]];
+        DBPath *dbPath = [[DBPath root] childPath:fileName];
+        DBFile *file = [self.filesystem createFile:dbPath error:&textError];
+        if (file) {
+            NSString *text = [NSString stringWithFormat:@"%@\n\n%@", post.title, post.body];
+            [file writeString:text error:&textError];
+        }
+        
+        // Images
+        DBError *imageError = nil;
+        NSInteger imagesLength = post.images.count;
+        for (int i = 0; i < imagesLength; i++) {
+            NSString *imageFilePath = [NSString stringWithFormat:@"%@/%d.txt", [self pathForPost:post], i];
+            DBPath *dbImagePath = [[DBPath root] childPath:imageFilePath];
+            DBFile *file = [self.filesystem createFile:dbImagePath error:&imageError];
+            if (file) {
+                NSData *imageData = UIImagePNGRepresentation(post.images[i]);
+                [file writeData:imageData error:&imageError];
+            }
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(post);
+        });
+    });
+    
 }
 
 - (NSString *)pathForPost:(MTRPost *)post
@@ -105,7 +126,6 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSString *path = [self pathForPostWithDate:date];
-        NSLog([NSString stringWithFormat:@"Looking for posts in folder: %@", path]);
         
         DBError *error = nil;
         NSArray *fileInfos = [_filesystem listFolder:[[DBPath root] childPath:path] error:&error];
