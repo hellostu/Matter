@@ -20,6 +20,7 @@
 
 @interface MTRRootViewController () <UITableViewDataSource> {
     UITableView *_tableView;
+    NSArray *_posts;
 }
 @end
 
@@ -35,6 +36,11 @@
         self.title = @"Matter";
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self fetchFromDropbox];
 }
 
 - (void)viewDidLoad {
@@ -131,11 +137,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return _posts.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MTRPostCell *postCell = [tableView dequeueReusableCellWithIdentifier:@"postCell"];
+    MTRPost *post = _posts[indexPath.row];
+    postCell.textLabel.text = post.title;
     return postCell;
 }
 
@@ -147,6 +155,18 @@
 - (void)postBarTapped:(UITapGestureRecognizer *)tapGesture {
     MTRPostViewController *postViewController = [[MTRPostViewController alloc] init];
     [self presentViewController:postViewController animated:YES completion:nil];
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Methods
+//////////////////////////////////////////////////////////////////////////
+
+- (void)fetchFromDropbox {
+    [[MTRApi sharedInstance] postsFromThisMonth:^(NSArray *posts) {
+        _posts = posts;
+        [_tableView reloadData];
+    }];
 }
 
 @end
