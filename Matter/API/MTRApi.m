@@ -14,6 +14,7 @@
 
 @property (nonatomic, readonly) DBFilesystem *filesystem;
 @property (nonatomic, readonly) MTRDropboxLoader *loader;
+@property (nonatomic, readonly) NSDateFormatter *formatter;
 
 @end
 
@@ -41,6 +42,9 @@
         DBAccount *account = [[DBAccountManager sharedManager] linkedAccount] ;
         _filesystem = [[DBFilesystem alloc] initWithAccount:account];
         _loader = [[MTRDropboxLoader alloc] initWithFilesystem:_filesystem];
+        _formatter = [NSDateFormatter new];
+        [_formatter setDateFormat:@"YYYY-MM-DD HH:mm"];
+        [_formatter setTimeZone:[NSTimeZone defaultTimeZone]];
     }
     return self;
 }
@@ -60,7 +64,7 @@
         DBPath *dbPath = [[DBPath root] childPath:fileName];
         DBFile *file = [self.filesystem createFile:dbPath error:&textError];
         if (file) {
-            NSString *text = [NSString stringWithFormat:@"%@\n\n%@", post.title, post.body];
+            NSString *text = [NSString stringWithFormat:@"%@\n\n%@\n\n%@", [self.formatter stringFromDate:post.postDate], post.title, post.body];
             [file writeString:text error:&textError];
         }
         
@@ -84,6 +88,8 @@
     });
     
 }
+
+#pragma mark Post retrieval
 
 - (NSString *)pathForPost:(MTRPost *)post
 {
@@ -152,7 +158,7 @@
                 }
             }
             
-            [postsArray addObject:[[MTRPost alloc] initWithTitle:splitFile[0] description:splitFile[1] imageUrls:imageUrls imageLoader:self.loader]];
+            [postsArray addObject:[[MTRPost alloc] initWithDate:[self.formatter dateFromString:splitFile[0]]  title:splitFile[1] description:splitFile[2] imageUrls:imageUrls imageLoader:self.loader]];
             
         }
         
@@ -181,6 +187,13 @@
     components.month = monthOffset;
     date = [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:date options:0];
     [self postsFromMonthOfDate:date callback:posts];
+}
+
+#pragma mark Post listening
+
+- (void)listenToPost:(MTRPost *)post withDelegate:(id<MTRPostChangeDelegate>)delegate
+{
+    
 }
 
 @end

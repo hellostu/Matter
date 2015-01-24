@@ -8,6 +8,7 @@
 
 #import "MTRPost.h"
 #import "MTRDropboxLoader.h"
+#import "MTRApi.h"
 
 @interface MTRPost ()
 
@@ -36,11 +37,11 @@
     return self;
 }
 
-- (instancetype)initWithTitle:(NSString *)title description:(NSString *)body imageUrls:(NSArray *)imageUrls imageLoader:(MTRDropboxLoader *)loader
+- (instancetype)initWithDate:(NSDate *)date title:(NSString *)title description:(NSString *)body imageUrls:(NSArray *)imageUrls imageLoader:(MTRDropboxLoader *)loader
 {
     self = [super init];
     if (self) {
-        _postDate = [NSDate date];
+        _postDate = date;
         _title = title;
         _body = body;
         _imageUrls = [NSArray arrayWithArray:imageUrls];
@@ -68,6 +69,11 @@
             imageHandler(images);
         });
     });
+}
+
+- (void)listen:(id<MTRPostChangeDelegate>)delegate
+{
+    [[MTRApi sharedInstance] listenToPost:self withDelegate:delegate];
 }
 
 @end
