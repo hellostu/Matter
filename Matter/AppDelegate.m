@@ -9,11 +9,15 @@
 #import "AppDelegate.h"
 #import "MTRRootViewController.h"
 #import "MTRLoginViewController.h"
+#import "MTRTransitionContainer.h"
 #import "MTRColors.h"
 
 #import <Dropbox/Dropbox.h>
 
-@interface AppDelegate ()
+@interface AppDelegate () {
+    UINavigationController *_navigationController;
+    MTRTransitionContainer *_transitionContainer;
+}
 
 @end
 
@@ -31,11 +35,19 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    MTRRootViewController *rootViewController = [[MTRRootViewController alloc] init];
-    MTRLoginViewController *loginViewController = [[MTRLoginViewController alloc] init];
     
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
-    self.window.rootViewController = navigationController;
+    
+    if([[DBAccountManager sharedManager] linkedAccount] != nil) {
+        MTRLoginViewController *loginViewController = [[MTRLoginViewController alloc] init];
+        _transitionContainer = [[MTRTransitionContainer alloc] initWithViewController:loginViewController];
+    } else {
+        MTRRootViewController *rootViewController = [[MTRRootViewController alloc] init];
+        _transitionContainer = [[MTRTransitionContainer alloc] initWithViewController:rootViewController];
+    }
+    
+    
+    _navigationController = [[UINavigationController alloc] initWithRootViewController:_transitionContainer];
+    self.window.rootViewController = _navigationController;
     
     DBAccountManager *accountManager = [[DBAccountManager alloc] initWithAppKey:@"jb2quzu94h24k9x" secret:@"if3vy1wqrd7l9vp"];
     [DBAccountManager setSharedManager:accountManager];
@@ -49,6 +61,8 @@
     DBAccount *account = [[DBAccountManager sharedManager] handleOpenURL:url];
     if (account) {
         NSLog(@"App linked successfully!");
+        MTRRootViewController *rootViewController = [[MTRRootViewController alloc] init];
+         [_transitionContainer transitionToViewController:rootViewController withAnimation:UIViewAnimationOptionTransitionCrossDissolve];
         return YES;
     }
     return NO;

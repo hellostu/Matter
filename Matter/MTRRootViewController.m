@@ -7,10 +7,12 @@
 //
 
 #import "MTRRootViewController.h"
+#import "MTRPostViewController.h"
 #import "MTRPostCreationView.h"
 #import "MTRApi.h"
 #import "MTRPost.h"
 #import "MTRColors.h"
+#import "MTRPostCell.h"
 
 #define PADDING_LEFT 10
 #define PADDING_RIGHT 10
@@ -28,14 +30,20 @@
 #pragma mark Lifecycle
 //////////////////////////////////////////////////////////////////////////
 
+- (id)init {
+    if ( (self = [super init]) != nil) {
+        self.title = @"Matter";
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"Matter";
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
     _tableView.dataSource = self;
+    [_tableView registerClass:[MTRPostCell class] forCellReuseIdentifier:@"postCell"];
     [self.view addSubview:_tableView];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_tableView
                                                           attribute:NSLayoutAttributeTop
@@ -62,6 +70,7 @@
     UIView *postBar = [[UIView alloc] init];
     postBar.translatesAutoresizingMaskIntoConstraints = NO;
     postBar.backgroundColor = [MTRColors blue];
+    postBar.userInteractionEnabled = YES;
     [self.view addSubview:postBar];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:postBar
                                                           attribute:NSLayoutAttributeTop
@@ -99,6 +108,8 @@
                                                          multiplier:1.0
                                                            constant:0.0]];
     
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(postBarTapped:)];
+    [postBar addGestureRecognizer:tapGesture];
 }
 
 -(UIStatusBarStyle) preferredStatusBarStyle {
@@ -124,7 +135,18 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+    MTRPostCell *postCell = [tableView dequeueReusableCellWithIdentifier:@"postCell"];
+    return postCell;
+}
+
+//////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Action
+//////////////////////////////////////////////////////////////////////////
+
+- (void)postBarTapped:(UITapGestureRecognizer *)tapGesture {
+    MTRPostViewController *postViewController = [[MTRPostViewController alloc] init];
+    [self presentViewController:postViewController animated:YES completion:nil];
 }
 
 @end

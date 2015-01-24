@@ -7,6 +7,7 @@
 //
 
 #import "MTRPostViewController.h"
+#import "MTRColors.h"
 
 @implementation MTRPostViewController
 
@@ -17,9 +18,13 @@
 
 - (id)init {
     if ( ([super self]) != nil) {
-        
+        self.view.backgroundColor = [MTRColors lightCoolGrey];
     }
     return self;
+}
+
+-(UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 @end
