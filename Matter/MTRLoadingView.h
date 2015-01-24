@@ -10,4 +10,7 @@
 
 @interface MTRLoadingView : UIView
 
+- (void)startLoading;
+- (void)stopLoading;
+
 @end
